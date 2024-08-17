@@ -1,0 +1,150 @@
+:root {
+    --font-primary: "Quicksand", sans-serif;
+    --font-second: "Work Sans", sans-serif;
+}
+
+:root {
+    --color-primary: #FFA500;
+    --color-red: #8B0000;
+    --color-abu: #656866;
+    --color-orange: #C94D05;
+    --color-emas: #FFD700;
+    --color-krem: #FFFACD;
+    --color-bluelaut: #1E90FF;
+    --color-green: #28a745;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-primary);
+    text-align: left;
+    overflow-x: hidden;
+}
+
+/*--------------------------------------------------------------
+# Sidebar & navbar
+--------------------------------------------------------------*/
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgb(134, 81, 81);
+    transition: all 0.3s;
+    z-index: 1050;
+    overflow-y: auto;
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#sidebar .sidebar-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#sidebar.collapsed {
+    min-width: 80px;
+    max-width: 80px;
+}
+
+#sidebar .sidebar-header img {
+    max-width: 100%;
+    height: auto;
+}
+
+#sidebar .nav-item .nav-link {
+    white-space: nowrap;
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+}
+
+#sidebar .nav-item .nav-link i {
+    margin-right: 10px;
+}
+
+#content {
+    margin-left: 150px;
+    transition: all 0.3s;
+    padding: 20px;
+}
+
+#content-wrapper {
+    padding-top: 12vh;
+    margin-left: 270px;
+    width: calc(100% - 270px);
+}
+
+#content.collapsed {
+    margin-left: 80px;
+}
+
+.nav-link-text {
+    display: inline-block;
+    transition: opacity 0.3s;
+}
+
+#sidebar.collapsed .nav-link-text {
+    opacity: 0;
+}
+
+.container-fluid {
+    padding: 20px;
+}
+
+.navbar {
+    z-index: 1000;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    height: 10vh;
+    top: 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.ml-auto {
+    margin-left: auto !important;
+}
+
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
+}
+
+
+main {
+    margin-top: 56px;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        min-width: 80px;
+        max-width: 80px;
+    }
+
+    #content {
+        margin-left: 80px;
+    }
+}
+
+.card-header {
+    padding: 1.5rem 1.5rem;
+    margin-bottom: 0;
+    background-color: transparent;
+    border-bottom: 0 solid #d9dee3;
+}
+
+.card-header:first-child {
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.card-body {
+    flex: 1 1 auto;
+    padding: 1.5rem 1.5rem;
+}
