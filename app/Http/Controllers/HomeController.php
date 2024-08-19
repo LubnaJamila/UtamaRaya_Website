@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -15,7 +15,8 @@ class HomeController extends Controller
     }
 
     public function umkm(){
-        return view('frontend.umkm.umkm');
+       $jenisKelamin = User::getJenisKelamin(); 
+    return view('frontend.umkm.umkm', compact('jenisKelamin'));
     }
 
     public function akomodasi(){

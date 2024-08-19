@@ -992,7 +992,7 @@ body {
 }
 
 .akomodation .properties .item span.category_hotel {
-    background-color: black;
+    background-color: var(--color-green);
     font-weight: 900;
     border-radius: 5px;
     font-size: 14px;
@@ -1025,7 +1025,7 @@ body {
 }
 
 .akomodation .properties .item span.category_bungalow {
-    background-color: var(--color-red);
+    background-color: black;
     font-weight: 900;
     border-radius: 5px;
     font-size: 14px;
@@ -2134,9 +2134,33 @@ select:-moz-focusring {
 }
 
 .btn-right {
-    display: flex;
-    justify-content: flex-end;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
 }
+
+.btn-right .dropdown-menu {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    margin-bottom: 10px;
+    z-index: 1050;
+}
+
+.btn-right .dropdown-item {
+    color: #000000;
+    font-weight: 500;
+}
+
+.btn-right .dropdown-item:hover {
+    background-color: var(--color-red);
+    color: white;
+    font-weight: 500;
+}
+
+
+
 
 .btn-whatsapp i {
     margin-right: 10px;
@@ -2328,7 +2352,7 @@ select:-moz-focusring {
 }
 
 .akomodasi .item span.category_hotel {
-    background-color: black;
+    background-color: var(--color-green);
     font-weight: 900;
     border-radius: 5px;
     font-size: 14px;
@@ -2361,7 +2385,7 @@ select:-moz-focusring {
 }
 
 .akomodasi .item span.category_bungalow {
-    background-color: var(--color-red);
+    background-color: black;
     font-weight: 900;
     border-radius: 5px;
     font-size: 14px;
@@ -2762,4 +2786,15 @@ select:-moz-focusring {
     background: linear-gradient(to right, #8B0000, #E1631A);
     border: none;
     font-weight: 700;
+}
+
+#jenis_kelamin {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><polygon points="0,0 10,0 5,7" fill="%23000000"/></svg>') no-repeat right 10px center;
+    background-color: #ffffff;
+    padding-right: 30px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
 }

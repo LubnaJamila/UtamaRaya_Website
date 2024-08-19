@@ -8,17 +8,14 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-     public function login(){
-        return view('frontend.login');
-    }
-
-    public function authenticate(Request $request){
+    public function authenticate(Request $request)
+{
     $credentials = $request->validate([
         'email' => 'required|email|exists:users,email',
         'password' => 'required|string|min:3',
     ], [
         'email.required' => 'Email wajib diisi',
-        'email.exists' => 'Email tidak terdaftar', // Perbaikan typo dari 'exsits' menjadi 'exists'
+        'email.exists' => 'Email tidak terdaftar',
         'password.required' => 'Password wajib diisi',
         'password.min' => 'Password harus diisi minimal 3 karakter',
     ]);
@@ -27,7 +24,7 @@ class AuthController extends Controller
         $request->session()->regenerate();
         $user = Auth::user();
         if ($user->jabatan == 'user') {
-            return redirect()->intended('dashboard');
+            return redirect()->intended('/');
         } elseif ($user->jabatan == 'umkm') {
             return redirect()->intended('dashboard_umkm');
         } elseif ($user->jabatan == 'admin') {
@@ -36,7 +33,7 @@ class AuthController extends Controller
     }
 
     return redirect()->route('login')->with('loginError', 'Login gagal! Periksa kembali email dan password Anda.');
-    }
+}
     public function register(){
         return view('frontend.register');
     }
@@ -47,9 +44,10 @@ class AuthController extends Controller
 
         $request->validate([
             'email' => 'required|string|email|unique:users,email',
-            'password' => 'required|string|min:5|confirmed',
+            'password' => 'required|string|min:3|confirmed',
             'password_confirmation' => 'required|string|min:3',
             'nama_lengkap' => 'required|string',
+            'no_hp' => 'required|string|max:15',
         ], [
             'email.required' => 'Email wajib diisi',
             'email.email' => 'Email harus berformat email yang valid',
@@ -60,17 +58,19 @@ class AuthController extends Controller
             'password_confirmation.confirmed' => 'Konfirmasi password tidak sama',
             'password_confirmation.min' => 'Konfirmasi password harus terdiri dari minimal 5 karakter',
             'nama_lengkap.required' => 'Nama lengkap wajib diisi',
+            'no_hp.required' => 'No Hp wajib diisi',
         ]);
 
         $user = User::create([
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'nama_lengkap' => $request->nama_lengkap,
+            'no_hp' => $request->no_hp,
             'jabatan' => 'user',
         ]);
 
         if ($user) {
-            return redirect()->route('login')->with('success', 'Akun Berhasil Dibuat!');
+            return redirect()->route('home')->with('success', 'Akun Berhasil Dibuat!');
         } else {
             return back()->with('error', 'Gagal membuat akun, silakan coba lagi.');
         }

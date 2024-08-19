@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -23,6 +24,11 @@ class User extends Authenticatable
     protected $fillable = [  
         'nama_lengkap',
         'email',
+        'no_hp',
+        'nama_usaha',
+        'deskripsi_umkm',
+        'alamat',
+        'jenis_kelamin',
         'password', 
         'jabatan',
         'otp',
@@ -45,4 +51,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Di model User
+public static function getJenisKelamin()
+{
+    return ['pria', 'wanita'];
+}
+
 }

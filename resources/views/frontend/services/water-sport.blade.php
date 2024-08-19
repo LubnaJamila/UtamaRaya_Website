@@ -78,8 +78,6 @@
                         <p class="price">Rp. 50.000 /org</p>
                     </div>
                 </div>
-                
-
 
             </div>
         </div>
