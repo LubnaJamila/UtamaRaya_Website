@@ -84,25 +84,44 @@
                     <div class="modal-body">
                         <form method="POST" action="{{ route('register.post') }}">
                             @csrf
-                            <div class="mb-3">
+                            <div class=" form-group mb-3">
                                 <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
                                 <input type="text" class="form-control" id="nama_lengkap" name="nama_lengkap"
                                     placeholder="Masukkan nama lengkapmu!" required>
+                                @error('nama_lengkap')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            <div class="mb-3">
+                            <div class="form-group mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" name="email"
                                     placeholder="example@gmail.com" required>
+                                @error('email')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            <div class="mb-3">
+                            <div class="form-group mb-3">
+                                <label for="no_hp" class="form-label">No Hp</label>
+                                <input type="no_hp" class="form-control" id="no_hp" name="no_hp" required>
+                                @error('no_hp')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group mb-3">
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" id="password" name="password"
                                     placeholder="Min. 5 karakter" required>
+                                @error('password')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
-                            <div class="mb-3">
+                            <div class="form-group mb-3">
                                 <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
                                 <input type="password" class="form-control" id="password_confirmation"
                                     name="password_confirmation" required>
+                                @error('password_confirmation')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
                             <button type="submit" class="btn btn-primary">Daftar</button>
                             @if (session()->has('success'))
@@ -116,8 +135,9 @@
                                 </div>
                             @endif
                             <div class="mt-3">
-                                <p class="form-label text-center">Sudah Punya Akun? <a href="#" data-bs-toggle="modal"
-                                        data-bs-target="#loginModal" class="open-register-modal">Login</a>
+                                <p class="form-label text-center">Sudah Punya Akun? <a href="#"
+                                        data-bs-toggle="modal" data-bs-target="#loginModal"
+                                        class="open-register-modal">Login</a>
                                 </p>
                             </div>
                         </form>
