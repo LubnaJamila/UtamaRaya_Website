@@ -26,7 +26,7 @@ class AuthController extends Controller
         if ($user->jabatan == 'user') {
             return redirect()->intended('/');
         } elseif ($user->jabatan == 'umkm') {
-            return redirect()->intended('dashboard_umkm');
+            return redirect()->intended('umkm/langganan');
         } elseif ($user->jabatan == 'admin') {
             return redirect()->intended('dashboard_admin');
         }

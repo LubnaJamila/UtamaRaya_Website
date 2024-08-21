@@ -12,22 +12,43 @@
         <h5 class="mb-4">Edit Produk</h5>
         <div class="card mb-4">
             <div class="card-body">
-                <form>
+            <form action="{{ route('produk.update', $data_produk->id_produk) }}" method="post" enctype="multipart/form-data">
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @csrf
+                @method('PUT')
                     <div class="form-group mb-3">
                         <label for="namaProduk">Nama Produk</label>
-                        <input type="text" class="form-control" id="namaProduk" name="namaProduk" required>
+                        <input type="text" class="form-control" name="nama_produk" value="{{ old('nama_produk', $data_produk->nama_produk) }}" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="hargaProduk">Harga</label>
-                        <input type="number" class="form-control" id="hargaProduk" name="hargaProduk" required>
+                        <input type="number" name="harga_produk" class="form-control" id="hargaProduk" value="{{ old('harga_produk', $data_produk->harga_produk) }}" required>
                     </div>
                     <div class="form-group mb-3">
                         <label for="deskripsiSingkat">Deskripsi Singkat</label>
-                        <textarea class="form-control" id="deskripsiSingkat" name="deskripsiSingkat" rows="2" required></textarea>
+                        <textarea class="form-control" id="deskripsiSingkat" name="deskripsi_produk" rows="2" required>{{ $data_produk->deskripsi_produk ?? '' }}</textarea>
                     </div>
                     <div class="form-group mb-3">
                         <label for="fotoProduk">Foto Produk</label>
-                        <input type="file" class="form-control" id="fotoProduk" name="fotoProduk" required>
+                        @if(isset($data_produk) && $data_produk->gambar_produk)
+                            <div class="mb-2">
+                                <img src="{{ asset($data_produk->gambar_produk) }}" alt="Gambar Produk" width="150" class="img-thumbnail">
+                            </div>
+                        @endif
+                        <input type="file" class="form-control" id="fotoProduk" name="gambar_produk" {{ isset($data_produk) ? '' : 'required' }}>
                     </div>
                     <div class="text-end">
                         <button type="submit" class="btn btn-orange">Simpan Produk</button>

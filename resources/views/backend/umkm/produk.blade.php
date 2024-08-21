@@ -1,10 +1,16 @@
 @extends('backend.template')
 @section('content')
-    <div class="container dashboard-umkm mt-4">
+<div class="container dashboard-umkm mt-4">
         <h5 class="card-title mb-2">Produk Anda</h5>
-        <a type="button" class="btn btn-info" href="{{ route('produk.create') }}">
-            <i class="fas fa-plus"></i> Tambah Produk
-        </a>
+        @if($product_count >= 3)
+            <button type="button" class="btn btn-info" disabled>
+                <i class="fas fa-plus"></i> Tambah Produk
+            </button>
+        @else
+            <a type="button" class="btn btn-info" href="{{ route('produk.create') }}">
+                <i class="fas fa-plus"></i> Tambah Produk
+            </a>
+        @endif
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -12,29 +18,28 @@
                 <thead>
                     <tr>
                         <th>Nama Produk</th>
-                        <th>Harga</th>
-                        <th>Deskipsi Singkat</th>
-                        <th>Foto Produk</th>
-                        <th>Aksi</th>
+                        <th>Harga Produk</th>
+                        <th>Deskipsi Produk</th>
+                        <th>Gambar Produk</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Tahu Laut</td>
-                        <td>20.000</td>
-                        <td>Dibuat denganbebrabgai bumbu dan campuran bahan laut.</td>
-                        <td><img src="{{ asset('backend/assets/img/water_page.png') }}" alt="Foto Produk"
-                                class="img-thumbnail" style="max-width: 150px">
-                        </td>
-                        <td>
-                            <a href="{{ route('produk.edit') }}" class="btn btn-warning m-0" style="font-weight: 800">
-                                <i class="fas fa-edit ml-2"></i>
-                            </a>
-                            <button style="font-weight: 800" class="btn btn-danger m-0">
-                                <i class="fas fa-trash ml-2"></i>
-                            </button>
-                        </td>
-                    </tr>
+                @foreach ($data_produk as $item)
+                <tr>
+                <td class="text-center text-primary">{{ $loop->iteration }}</td>
+                <td class="text-primary">{{ $item->nama_produk}}</td>
+                <td class="text-primary">{{ $item->harga_produk}}</td>
+                <td class="text-primary">{{ $item->deskripsi_produk }}</td>
+                <td class="text-primary">
+                        <img src="{{ asset($item->gambar_produk) }}" alt="Gambar Produk" style="width: 50px; height: auto;">
+                    </td>
+                <td>
+                <a class="btn btn-primary btn-sm icon-btn"
+                href="{{ route('produk.edit', $item->id_produk) }}"><i
+                class="fas fa-edit"></i></a>
+                </td>
+                </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

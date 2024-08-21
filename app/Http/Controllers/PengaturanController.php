@@ -14,7 +14,7 @@ class PengaturanController extends Controller
         $data['user']=$user;
         return view('Backend.pengaturan.profile', $data);
     }
-     public function edit_profile()
+     public function edit_profile_umkm()
     {
         $user=auth()->user();
         $data['user']=$user;
@@ -24,11 +24,11 @@ class PengaturanController extends Controller
     {
         return view('Backend.pengaturan.ubah_password');
     }
-     public function update_profile(Request $request)
+     public function update_profile_umkm(Request $request)
     {
         $request->validate([
             'nama_lengkap' => 'required|string',
-            'email' => 'required|string|email|unique:users,email',
+            'email' => 'required|email',
             'no_hp' => 'required|string|max:15',
             'nama_usaha' => 'required|string|max:50',
             'deskripsi_umkm' => 'required|string|max:300',
@@ -38,7 +38,6 @@ class PengaturanController extends Controller
             'nama_lengkap.required' => 'Nama Lengkap wajib diisi',
             'email.required' => 'Email wajib diisi',
             'email.email' => 'Email harus berformat email yang valid',
-            'email.unique' => 'Email sudah digunakan',
             'no_hp.required' => 'No Hp wajib diisi',
             'nama_usaha.required' => 'Nama Usaha wajib diisi',
             'deskripsi_umkm.required' => 'Deskripsi Usaha wajib diisi',
@@ -55,7 +54,7 @@ class PengaturanController extends Controller
             'alamat' => $request->alamat,
             'jenis_kelamin' => $request->jenis_kelamin,
         ]);
-        return redirect()->route('edit_profile')->with('success','profile berhasil di edit');
+        return redirect()->route('edit_profile_umkm')->with('success','profile berhasil di edit');
     }
     public function update_password(Request $request){
         $request->validate([

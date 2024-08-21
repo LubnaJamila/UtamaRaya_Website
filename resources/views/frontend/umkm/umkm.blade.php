@@ -218,6 +218,24 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="mb-3">
+                                    <label for="harga_terendah" class="form-label">Harga Terendah</label>
+                                    <input class="form-control" id="harga_terendah" name="harga_terkecil" required>
+                                    @error('harga_terendah')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <div class="mb-3">
+                                    <label for="harga_tertinggi" class="form-label">Harga Tertinggi</label>
+                                    <input class="form-control" id="harga_tertinggi" name="harga_tertinggi" required>
+                                    @error('harga_tertinggi')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
 
                             <div class="col-lg-6 col-md-12">
                                 <div class="mb-3">

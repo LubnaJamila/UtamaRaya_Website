@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Utama Raya | Langganan</title>
-      <link href="{{ asset('frontend/assets/img/UR-logo.png') }}" rel="icon">
+    <link href="{{ asset('frontend/assets/img/UR-logo.png') }}" rel="icon">
     <link href="{{ asset('frontend/assets/img/UR-logo.png') }}" rel="logo">
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -27,6 +27,8 @@
     <style>
         .card-container {
             margin-top: 30px;
+            align-items: center;
+            justify-content: center;
         }
 
         .card-title {
@@ -35,6 +37,7 @@
             font-weight: 700;
         }
 
+
         .card label {
             font-family: var(--font-primary);
             color: black;
@@ -42,6 +45,12 @@
         }
 
         .card {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
             border: 1px solid;
             border-color: #8B0000;
         }
@@ -104,119 +113,68 @@
         .btn-primary:hover {
             background-color: #0056b3;
         }
+
+        .content-container {
+            padding-top: 20px;
+
+        }
     </style>
 </head>
 
 <body>
-    <div class="container dashboard-umkm mt-4 text-center">
-        <h2 class="card-title mb-2">Dashboard Langganan UMKM</h5>
-            <p>Nikmati fitur UMKM dengan pilih paket berlangganan terlebih dahulu!</p>
-    </div>
-    <hr>
-    <div class="container">
-        <div class="row card-container">
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Paket Langganan 1</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut molestias
-                            consequatur natus sit error modi ipsa tenetur eos odio qui quas harum distinctio minima sint
-                            quidem, rem quasi, omnis neque.</p>
-                        <h6 class="card-subtitle mb-2 text-muted">Harga: 100.000 <span>/bulan</span></h6>
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#subscriptionModal" data-package="Paket Langganan 1"
-                            data-price="100.000">Berlangganan</a>
-                    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown no-arrow">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <span class="me-2 d-none d-lg-inline"
+                        style="font-weight: 700; color:black">{{ Auth::user()->nama_lengkap }}</span>
+                    <img class="img-profile rounded-circle" src="{{ asset('backend/assets/img/undraw_profile.svg') }}"
+                        alt="Profile">
+                </a>
+                <div class="dropdown-menu dropdown-menu-end shadow animated--grow-in" aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="{{ route('dashboard_umkm') }}">
+                        <i class="fas fa-tachometer-alt fa-sm fa-fw me-2"></i>
+                        Dashboard
+                    </a>
+                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw me-2" style="font-weight: 700 padding-right:10px"></i>
+                        Logout
+                    </a>
                 </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Paket Langganan 2</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque inventore,
-                            eveniet asperiores reprehenderit aut aspernatur placeat aliquid eos, repellat cupiditate
-                            omnis sed ab dolorum illo amet nihil quos obcaecati ipsa.</p>
-                        <h6 class="card-subtitle mb-2 text-muted">Harga: 200.000<span>/bulan</span></h6>
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#subscriptionModal" data-package="Paket Langganan 2"
-                            data-price="200.000">Berlangganan</a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Paket Langganan 3</h5>
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic nisi molestias
-                            nihil natus! Dolore accusamus est ad minus dicta consequuntur quod, non pariatur similique
-                            itaque eius facere asperiores soluta sequi.</p>
-                        <h6 class="card-subtitle mb-2 text-muted">Harga: 300.000<span>/bulan</span></h6>
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#subscriptionModal" data-package="Paket Langganan 3"
-                            data-price="300.000">Berlangganan</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="container content-container mt-5">
+        <div class="container dashboard-umkm mt-4 text-center">
+            <h2 class="card-title mb-2">Dashboard Langganan UMKM</h5>
+                <p>Nikmati fitur UMKM dengan pilih paket berlangganan terlebih dahulu!</p>
+        </div>
+        <hr>
+        <div class="container text-center align-items-center">
+            <div class="row card-container">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Paket Langganan</h5>
+                            <p class="card-text">{{ $langganan->deskripsi }}</p>
+                            <h6 class="card-subtitle mb-2 text-muted">Harga:
+                                {{ number_format($langganan->harga_langganan, 0, ',', '.') }}<span>/bulan</span>
+                            </h6>
+                            <a href="{{ route('umkm.berlangganan') }}" class="btn btn-primary">Berlangganan</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="modal fade" id="subscriptionModal" tabindex="-1" aria-labelledby="subscriptionModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="subscriptionModalLabel">Form Langganan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="subscriptionForm">
-                        <div class="mb-3">
-                            <label for="packageName" class="form-label">Nama Paket</label>
-                            <input type="text" class="form-control" id="packageName" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="packagePrice" class="form-label">Harga Paket</label>
-                            <input type="text" class="form-control" id="packagePrice" readonly>
-                        </div>
-                        <div class="mb-3">
-                            <label for="bankName" class="form-label">Nama Bank</label>
-                            <select class="form-select" id="bankName">
-                                <option value="bri">BRI</option>
-                                <option value="mandiri">Mandiri</option>
-                                <option value="bca">BCA</option>
-                                <option value="other">Bank Lainnya</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="accountNumber" class="form-label">No Rekening</label>
-                            <input type="text" class="form-control" id="accountNumber" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="accountName" class="form-label">Nama Pemilik Rekening</label>
-                            <input type="text" class="form-control" id="accountName" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="paymentProof" class="form-label">Upload Bukti Pembayaran</label>
-                            <input type="file" class="form-control" id="paymentProof" required>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                            <button type="submit" class="btn btn-orange">Kirim</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-    </script>
+        </script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
     <script src="{{ asset('backend/assets/script.js') }}"></script>

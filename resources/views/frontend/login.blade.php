@@ -29,7 +29,7 @@
     <div class="login-container">
         <div class="login-box">
             <h2 class="text-center mb-4">Login</h2>
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('login.form') }}">
                 @csrf
                 <div class="form-group">
                     <label for="email">Email</label>

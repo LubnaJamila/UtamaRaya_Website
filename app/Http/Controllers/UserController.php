@@ -48,6 +48,6 @@ class UserController extends Controller
             'email' => $request->email,
             'no_hp' => $request->no_hp,
         ]);
-        return redirect()->route('edit_prfileo')->with('success','profile berhasil di edit');
+        return redirect()->route('edit_profile')->with('success','profile berhasil di edit');
     }
 }
