@@ -11,6 +11,7 @@
             <table id="example" class="table table-striped" width="100%">
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>Nama Kamar</th>
                         <th>Harga Weekdays</th>
                         <th>Harga Weekend</th>
@@ -20,26 +21,39 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Hotel Sunset Deluxe</td>
-                        <td>20.000</td>
-                        <td>50.000</td>
-                        <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. A neque repellendus in perspiciatis
-                            similique atque ad amet architecto aut ab! Cum ab alias similique, placeat rerum perferendis sed
-                            delectus non.</td>
-                        <td><img src="{{ asset('backend/assets/img/water_page.png') }}" alt="Foto Produk"
-                                class="img-thumbnail" style="max-width: 150px">
-                        </td>
-                        <td>
-                            <a href="{{ route('akomodasi.edit') }}" class="btn btn-warning mb-1" style="font-weight: 800">
-                                <i class="fas fa-edit ml-2"></i>
-                            </a>
-                            <a style="font-weight: 800" class="btn btn-danger m-0">
-                                <i class="fas fa-trash ml-2"></i>
-                            </a>
-                        </td>
+                @foreach ($data_penginapan as $item)
+                <tr>
+                <td class="text-center text-primary">{{ $loop->iteration }}</td>
+                <td class="text-primary">{{ $item->nama_kamar}}</td>
+                <td class="text-primary">{{ $item->harga_weekdays}}</td>
+                <td class="text-primary">{{ $item->harga_weekend}}</td>
+                <td class="text-primary">
+                        @php
+                            $deskripsiArray = json_decode($item->deskripsi, true);
+                        @endphp
+                        <ul>
+                            @foreach($deskripsiArray as $deskripsi)
+                                <li>{{ $deskripsi }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
+                <td class="text-primary">
+                        <img src="{{ asset($item->gambar_kamar) }}" alt="Gambar Paket" style="width: 50px; height: auto;">
+                    </td>
+                <td>
+                <a class="btn btn-warning mb-1" style="font-weight: 800"
+                href="{{ route('akomodasi.edit', $item->id_tipe_kamar) }}"><i class="fas fa-edit ml-2"></i></a>
+                <form action="{{ route('hapus.penginapan', $item->id_tipe_kamar) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" style="font-weight: 800" class="btn btn-danger m-0" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                    <i class="fas fa-trash ml-2"></i>
+                    </button>
+                    </form>
+                    </td>
                     </tr>
-                </tbody>
+                    @endforeach
+                    </tbody>
             </table>
         </div>
     </div>

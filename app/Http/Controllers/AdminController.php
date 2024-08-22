@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\NoKamar;
+use App\Models\Penginapan;
 use App\Models\RekPembayaran;
 use App\Models\RentalBike;
 use App\Models\Watersport;
@@ -27,17 +29,128 @@ class AdminController extends Controller
     return view('backend.admin.dashboard_admin', compact('monthlyBookings', 'umkmStatuses'));
 }
 
-    public function akomodasi(){
-         return view('backend.admin.master.akomodasi');
+public function akomodasi(){
+    $data_penginapan = DB::table('tipe_kamar') ->get();
+     return view('backend.admin.master.akomodasi', compact('data_penginapan'));
+}
+public function create()
+{
+    return view('backend.admin.master.createakomodasi');
+}
+public function store_penginapan(Request $request)
+{
+$request->validate([
+    'nama_kamar' => 'required|string|max:255',
+    'harga_weekdays' => 'required|integer',
+    'harga_weekend' => 'required|integer',
+    'jumlah_ruangan' => 'required|integer',
+    'deskripsi' => 'required|string',
+    'gambar_kamar'=>'required|file|mimes:jpeg,png,jpg,pdf|max:2048',
+    'jumlah_no_kamar' => 'required|integer',
+]);
+
+$file = $request->file('gambar_kamar');
+$filename = date('Y-m-d') . $file->getClientOriginalName();
+$filePath = 'gambar_kamar/' . $filename;
+$file->move(public_path('gambar_kamar'), $filename);
+
+// Memecah deskripsi menggunakan explode
+$deskripsiArray = explode(',', $request->deskripsi);
+
+// Menyimpan tipe kamar baru
+$tipeKamar = Penginapan::create([
+    'nama_kamar' => $request->nama_kamar,
+    'harga_weekdays' => $request->harga_weekdays,
+    'harga_weekend' => $request->harga_weekend,
+    'jumlah_ruangan' => $request->jumlah_ruangan,
+    'deskripsi' => json_encode($deskripsiArray), // Simpan sebagai JSON array
+    'gambar_kamar' => $filePath,
+]);
+
+// Menyimpan nomor kamar berdasarkan jumlah_no_kamar yang diinputkan
+for ($i = 1; $i <= $request->jumlah_no_kamar; $i++) {
+    NoKamar::create([
+        'no_kamar' => $i,
+        'id_tipe_kamar' => $tipeKamar->id_tipe_kamar,
+    ]);
+}
+
+return redirect()->route('penginapan')->with('success', 'Tipe kamar dan nomor kamar berhasil ditambahkan.');
+}
+public function edit($id_tipe_kamar)
+{
+    $penginapan = Penginapan::findOrFail($id_tipe_kamar); 
+    $noKamar = NoKamar::where('id_tipe_kamar', $id_tipe_kamar)->get(); 
+    return view('backend.admin.master.editakomodasi', compact('penginapan', 'noKamar'));
+}
+public function updatepenginapan(Request $request, $id_tipe_kamar)
+{
+$request->validate([
+    'nama_kamar' => 'required|string|max:255',
+    'harga_weekdays' => 'required|integer',
+    'harga_weekend' => 'required|integer',
+    'jumlah_ruangan' => 'required|integer',
+    'deskripsi' => 'required|string',
+    'gambar_kamar' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:2048',
+    'jumlah_no_kamar' => 'required|integer',
+]);
+
+$penginapan = Penginapan::findOrFail($id_tipe_kamar);
+
+// Jika ada file gambar baru, proses upload
+if ($request->hasFile('gambar_kamar')) {
+    $file = $request->file('gambar_kamar');
+    $filename = date('Y-m-d') . $file->getClientOriginalName();
+    $filePath = 'gambar_kamar/' . $filename;
+    $file->move(public_path('gambar_kamar'), $filename);
+
+    // Update path gambar
+    $penginapan->gambar_kamar = $filePath;
+}
+
+// Memecah deskripsi menggunakan explode
+$deskripsiArray = explode(',', $request->deskripsi);
+
+// Update data tipe kamar
+$penginapan->update([
+    'nama_kamar' => $request->nama_kamar,
+    'harga_weekdays' => $request->harga_weekdays,
+    'harga_weekend' => $request->harga_weekend,
+    'jumlah_ruangan' => $request->jumlah_ruangan,
+    'deskripsi' => json_encode($deskripsiArray), // Simpan sebagai JSON array
+]);
+
+// Update nomor kamar jika jumlah_no_kamar berubah
+$jumlahNoKamarLama = NoKamar::where('id_tipe_kamar', $id_tipe_kamar)->count();
+if ($jumlahNoKamarLama != $request->jumlah_no_kamar) {
+    // Hapus semua nomor kamar lama
+    NoKamar::where('id_tipe_kamar', $id_tipe_kamar)->delete();
+
+    // Tambahkan nomor kamar baru
+    for ($i = 1; $i <= $request->jumlah_no_kamar; $i++) {
+        NoKamar::create([
+            'no_kamar' => $i,
+            'id_tipe_kamar' => $penginapan->id_tipe_kamar,
+        ]);
     }
-    public function create()
-    {
-        return view('backend.admin.master.createakomodasi');
-    }
-    public function edit()
-    {
-        return view('backend.admin.master.editakomodasi');
-    }
+}
+
+return redirect()->route('penginapan')->with('success', 'Data penginapan berhasil diperbarui.');
+}
+
+public function hapuspenginapan($id_tipe_kamar)
+{
+    // Cari tipe kamar berdasarkan ID
+    $penginapan = Penginapan::findOrFail($id_tipe_kamar);
+    
+    // Hapus semua nomor kamar yang terkait dengan tipe kamar ini
+    NoKamar::where('id_tipe_kamar', $id_tipe_kamar)->delete();
+
+    // Hapus tipe kamar
+    $penginapan->delete();
+
+    return redirect()->route('penginapan')->with('success', 'Data penginapan berhasil dihapus.');
+}
     public function watersport(){
         $data_watersport = DB::table('watersport') ->get();
          return view('backend.admin.master.watersport', compact('data_watersport'));

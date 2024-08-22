@@ -75,12 +75,16 @@ Route::get('/forgot_password', [AuthController::class, 'forgot_password'])->name
 
 Route::get('/dashboard_admin', [AdminController::class, 'index'])->name('dashboard_admin');
 Route::get('/validasi', [AdminController::class, 'validasi'])->name('validasi');
-Route::get('/master/akomodasi', [AdminController::class, 'akomodasi']);
+Route::get('/master/akomodasi', [AdminController::class, 'akomodasi'])->name('penginapan');
 Route::get('/master/watersport', [AdminController::class, 'watersport'])->name('watersport');
 Route::get('/master/rental_bike', [AdminController::class, 'rental'])->name('rentalbike');
 Route::get('/master/wedding_ballroom', [AdminController::class, 'ballroom'])->name('wedding');
+//penginapan
 Route::get('/akomodasi/create', [AdminController::class, 'create'])->name('akomodasi.create');
-Route::put('/akomodasi/edit', [AdminController::class, 'edit'])->name('akomodasi.edit');
+Route::post('/akomodasi_store', [AdminController::class, 'store_penginapan'])->name('store.penginapan');
+Route::get('/akomodasi/edit/{id_tipe_kamar}', [AdminController::class, 'edit'])->name('akomodasi.edit');
+Route::put('/akomodasi_update/{id_tipe_kamar}', [AdminController::class, 'updatepenginapan'])->name('update.penginapan');
+Route::delete('/akomodasi_hapus/{id_tipe_kamar}', [AdminController::class, 'hapuspenginapan'])->name('hapus.penginapan');
 //rentalbike
 Route::get('/rental-bike/create', [AdminController::class, 'createrental'])->name('rental.create');
 Route::post('/rental-bike/store',[AdminController::class,'store_rentalbike'])->name('store.rentalbike');
