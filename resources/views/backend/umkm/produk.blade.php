@@ -21,6 +21,7 @@
                         <th>Harga Produk</th>
                         <th>Deskipsi Produk</th>
                         <th>Gambar Produk</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +38,13 @@
                 <a class="btn btn-primary btn-sm icon-btn"
                 href="{{ route('produk.edit', $item->id_produk) }}"><i
                 class="fas fa-edit"></i></a>
+                <form action="{{ route('hapus.produk', $item->id_produk) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" style="font-weight: 800" class="btn btn-danger m-0"onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
                 </td>
                 </tr>
                 @endforeach

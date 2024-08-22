@@ -11,32 +11,34 @@
             <table id="example" class="table table-striped" width="100%">
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>Nama Paket Wedding</th>
                         <th>Harga Paket</th>
-                        <th>Deskripsi Paket</th>
                         <th>Foto</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Wedding Teras Pantai</td>
-                        <td>20.000.000</td>
-                        <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit. A neque repellendus in perspiciatis
-                            similique atque ad amet architecto aut ab! Cum ab alias similique, placeat rerum perferendis sed
-                            delectus non.</td>
-                        <td><img src="{{ asset('backend/assets/img/water_page.png') }}" alt="Foto Produk"
-                                class="img-thumbnail" style="max-width: 150px">
-                        </td>
-                        <td>
-                            <a href="{{ route('ballroom.edit') }}" class="btn btn-warning mb-1" style="font-weight: 800">
-                                <i class="fas fa-edit ml-2"></i>
-                            </a>
-                            <a style="font-weight: 800" class="btn btn-danger m-0">
-                                <i class="fas fa-trash ml-2"></i>
-                            </a>
-                        </td>
-                    </tr>
+                @foreach ($data_wedding as $item)
+                <tr>
+                <td class="text-center text-primary">{{ $loop->iteration }}</td>
+                <td class="text-primary">{{ $item->nama_paket}}</td>
+                <td class="text-primary">{{ $item->harga_paket}}</td>
+                <td class="text-primary">
+                        <img src="{{ asset($item->gambar_paket) }}" alt="Gambar Paket" style="width: 50px; height: auto;">
+                    </td>
+                <td>
+                <a class="btn btn-warning mb-1" style="font-weight: 800" href="{{ route('ballroom.edit', $item->id_wedding) }}"><i class="fas fa-edit ml-2"></i></a>
+                <form action="{{ route('hapuswedding', $item->id_wedding) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm icon-btn" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
+                </td>
+                </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

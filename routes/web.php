@@ -37,6 +37,7 @@ Route::middleware(['auth', 'umkm'])->group(function () {
     Route::post('/produk/store',[UMKMController::class,'store'])->name('store.produk');
     Route::get('/produk/edit/{id_produk}', [UMKMController::class, 'edit'])->name('produk.edit');
     Route::put('/produk/update/{id_produk}', [UMKMController::class, 'update'])->name('produk.update');
+    Route::delete('/produk_hapus/{id_produk}', [UMKMController::class, 'hapusproduk'])->name('hapus.produk');
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -75,21 +76,37 @@ Route::get('/forgot_password', [AuthController::class, 'forgot_password'])->name
 Route::get('/dashboard_admin', [AdminController::class, 'index'])->name('dashboard_admin');
 Route::get('/validasi', [AdminController::class, 'validasi'])->name('validasi');
 Route::get('/master/akomodasi', [AdminController::class, 'akomodasi']);
-Route::get('/master/watersport', [AdminController::class, 'watersport']);
-Route::get('/master/rental_bike', [AdminController::class, 'rental']);
-Route::get('/master/wedding_ballroom', [AdminController::class, 'ballroom']);
+Route::get('/master/watersport', [AdminController::class, 'watersport'])->name('watersport');
+Route::get('/master/rental_bike', [AdminController::class, 'rental'])->name('rentalbike');
+Route::get('/master/wedding_ballroom', [AdminController::class, 'ballroom'])->name('wedding');
 Route::get('/akomodasi/create', [AdminController::class, 'create'])->name('akomodasi.create');
 Route::put('/akomodasi/edit', [AdminController::class, 'edit'])->name('akomodasi.edit');
+//rentalbike
 Route::get('/rental-bike/create', [AdminController::class, 'createrental'])->name('rental.create');
-Route::put('/rental-bike/edit', [AdminController::class, 'editrental'])->name('rental.edit');
+Route::post('/rental-bike/store',[AdminController::class,'store_rentalbike'])->name('store.rentalbike');
+Route::get('/rental-bike/edit/{id_rentalbike}', [AdminController::class, 'editrental'])->name('rental.edit');
+Route::put('/rental-bike/update/{id_rentalbike}', [AdminController::class, 'updaterental'])->name('rental.update');
+Route::delete('rental-bike/delete/{id_rentalbike}',[AdminController::class,'hapusrental'])->name('hapusrental');
+//water sport
 Route::get('/watersport/create', [AdminController::class, 'createwater'])->name('water.create');
-Route::put('/watersport/edit', [AdminController::class, 'editwater'])->name('water.edit');
+Route::post('/watersport/store',[AdminController::class,'store'])->name('store.water');
+Route::get('/watersport/edit/{id_watersport}', [AdminController::class, 'editwater'])->name('water.edit');
+Route::put('/watersport/update/{id_watersport}', [AdminController::class, 'updatewater'])->name('water.update');
+Route::delete('watersport/delete/{id_watersport}',[AdminController::class,'hapuswater'])->name('hapuswater');
+//wedding
 Route::get('/ballroom-wedding/create', [AdminController::class, 'createballroom'])->name('ballroom.create');
-Route::put('/ballroom-wedding/edit', [AdminController::class, 'editballroom'])->name('ballroom.edit');
+Route::post('/ballroom-wedding/store',[AdminController::class,'storewedding'])->name('store.wedding');
+Route::get('/ballroom-wedding/edit/{id_wedding}', [AdminController::class, 'editballroom'])->name('ballroom.edit');
+Route::put('/ballroom-wedding/update/{id_wedding}', [AdminController::class, 'updatewedding'])->name('wedding.update');
+Route::delete('/ballroom-wedding/delete/{id_wedding}',[AdminController::class,'hapuswedding'])->name('hapuswedding');
+//rekening
+Route::get('/master/rekening', [AdminController::class, 'rekening'])->name('rekening');
+Route::get('/rekening/create', [AdminController::class, 'index_rekening'])->name('rekening.create');
+Route::post('/get-bank-details', [AdminController::class, 'getBankDetails'])->name('get.bank.details');
+Route::post('/rekening_store', [AdminController::class, 'store_rekening'])->name('store.rekening');
+Route::delete('/rekening_hapus/{id_rek}', [AdminController::class, 'hapusrekening'])->name('hapus.rekening');
 
-Route::get('/validasi/rekening', [ValidasiController::class, 'rekening']);
-Route::get('/rekening/create', [ValidasiController::class, 'createrekening'])->name('rekening.create');
-Route::put('/rekening/edit', [ValidasiController::class, 'editrekening'])->name('rekening.edit');
+
 Route::get('/validasi/pembatalan', [ValidasiController::class, 'pembatalan']);
 Route::get('/validasi/pembayaran', [ValidasiController::class, 'pembayaran']);
 Route::get('/validasi/umkm', [ValidasiController::class, 'umkm']);

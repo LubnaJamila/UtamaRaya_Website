@@ -35,6 +35,9 @@
                     <li class="sidebar-item {{ Request::is('master/wedding_ballroom') ? 'active' : '' }}">
                         <a href="/master/wedding_ballroom" class="sidebar-link">Wedding Ballroom</a>
                     </li>
+                    <li class="sidebar-item {{ Request::is('master/rekening') ? 'active' : '' }}">
+                        <a href="/master/rekening" class="sidebar-link">Rekening</a>
+                    </li>
                 </ul>
             </li>
             <li class="sidebar-item">
@@ -45,9 +48,6 @@
                 </a>
                 <ul id="validasi-menu"
                     class="sidebar-dropdown list-unstyled collapse {{ Request::is('validasi/*') ? 'show' : '' }}">
-                    <li class="sidebar-item {{ Request::is('validasi/rekening') ? 'active' : '' }}">
-                        <a href="/validasi/rekening" class="sidebar-link">Rekening</a>
-                    </li>
                     <li class="sidebar-item {{ Request::is('validasi/pembayaran') ? 'active' : '' }}">
                         <a href="/validasi/pembayaran" class="sidebar-link">Pembayaran</a>
                     </li>

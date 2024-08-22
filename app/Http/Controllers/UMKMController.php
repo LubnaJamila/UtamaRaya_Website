@@ -72,34 +72,45 @@ class UMKMController extends Controller
         return view('backend.umkm.create');
     }
     public function store(Request $request){
+        // Validasi input awal
         $request->validate([
             'nama_produk' => 'required',
-            'harga_produk' => 'required',
+            'harga_produk' => 'required|numeric',
             'deskripsi_produk' => 'required',
             'gambar_produk' => 'required|file|mimes:jpeg,png,jpg,pdf|max:2048',
         ]);
-
+    
         $userId = Auth::id(); 
-        $id_langganan = DB::table('langganan')
-        ->where('id_user', $userId)
-        ->value('id_langganan');
-
+        $langganan = DB::table('langganan')
+            ->where('id_user', $userId)
+            ->first();
+    
+        if (!$langganan) {
+            return back()->withErrors(['error' => 'Data langganan tidak ditemukan']);
+        }
+    
+        if ($request->harga_produk < $langganan->harga_terkecil || $request->harga_produk > $langganan->harga_tertinggi) {
+            return back()->withErrors(['error' => 'Harga produk harus berada di antara ' . $langganan->harga_terkecil . ' dan ' . $langganan->harga_tertinggi]);
+        }
+    
+        // Proses upload file gambar
         $file = $request->file('gambar_produk');
         $filename = date('Y-m-d') . $file->getClientOriginalName();
         $filePath = 'gambar_produk/' . $filename;
         $file->move(public_path('gambar_produk'), $filename);
-
+    
         // Simpan data produk ke database termasuk id_langganan
         ProdukUMKM::create([
             'nama_produk' => $request->nama_produk,
             'harga_produk' => $request->harga_produk,
             'deskripsi_produk' => $request->deskripsi_produk,
             'gambar_produk' => $filePath,
-            'id_langganan' => $id_langganan, 
+            'id_langganan' => $langganan->id_langganan, 
         ]);
+    
         return redirect()->route('produk')->with('success', 'Produk berhasil ditambahkan.');
     }
-       public function edit($id_produk)
+           public function edit($id_produk)
     {
         $data_produk = ProdukUMKM::find($id_produk);
         return view('backend.umkm.edit',compact('data_produk'));
@@ -112,6 +123,19 @@ class UMKMController extends Controller
         'deskripsi_produk' => 'required|string',
         'gambar_produk' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:2048',
     ]);
+
+    $userId = Auth::id();
+    $langganan = DB::table('langganan')
+        ->where('id_user', $userId)
+        ->first();
+
+    if (!$langganan) {
+        return back()->withErrors(['error' => 'Data langganan tidak ditemukan']);
+    }
+
+    if ($request->harga_produk < $langganan->harga_terkecil || $request->harga_produk > $langganan->harga_tertinggi) {
+        return back()->withErrors(['error' => 'Harga produk harus berada di antara ' . $langganan->harga_terkecil . ' dan ' . $langganan->harga_tertinggi]);
+    }
 
     $data_produk = ProdukUMKM::findOrFail($id_produk);
     $data = [
@@ -130,9 +154,9 @@ class UMKMController extends Controller
 
     $data_produk->update($data);
 
-
     return redirect()->route('produk')->with('success', 'Produk berhasil diperbarui.');
 }
+
     public function registerUmkm(Request $request)
     {
 
@@ -242,4 +266,10 @@ public function save_berlangganan(Request $request)
         return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
     }
 }
+public function hapusproduk($id_produk)
+    {
+        $data_produk = ProdukUMKM::findOrFail($id_produk);
+        $data_produk->delete();
+        return redirect()->route('produk')->with('success', 'Data Produk Berhasil Dihapus');
+    }
 }

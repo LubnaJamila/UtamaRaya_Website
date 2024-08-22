@@ -4,10 +4,6 @@
         <h5 class="card-title mb-2">Daftar Water Sport</h5>
         <a type="button" class="btn btn-info" href="{{ route('water.create') }}">
             <i class="fas fa-plus"></i> Tambah Data Water Sport
-
-        </a>
-        <a type="button" class="btn btn-warning" href="{{ route('water.create') }}">
-            <i class="fas fa-plus"></i> Tambah Data Cuaca
         </a>
     </div>
     <div class="card-body">
@@ -15,6 +11,7 @@
             <table id="example" class="table table-striped" width="100%">
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>Nama Water Sport</th>
                         <th>Deskripsi</th>
                         <th>Harga</th>
@@ -23,26 +20,30 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($data_watersport as $item)
                     <tr>
-                        <td>Banan Boat</td>
-                        <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore nulla commodi vel. At
-                            laboriosam natus accusantium sint nam, porro eos molestiae odit amet corrupti hic fugit
-                            cupiditate magnam tempora ullam.</td>
-                        <td>20.000</td>
-                        <td><img src="{{ asset('backend/assets/img/water_page.png') }}" alt="Foto Produk"
-                                class="img-thumbnail" style="max-width: 150px">
+                    <td class="text-center text-primary">{{ $loop->iteration }}</td>
+                    <td class="text-primary">{{ $item->nama_watersport}}</td>
+                    <td class="text-primary">{{ $item->harga_watersport}}</td>
+                    <td class="text-primary">{{ $item->deskripsi }}</td>
+                    <td class="text-primary">
+                            <img src="{{ asset($item->gambar_watersport) }}" alt="Gambar Produk" style="width: 50px; height: auto;">
                         </td>
-                        <td>
-                            <a href="{{ route('rental.edit') }}" class="btn btn-warning mb-1" style="font-weight: 800">
+                    <td>
+                    <a href="{{ route('water.edit', $item->id_watersport) }}" class="btn btn-warning mb-1" style="font-weight: 800">
                                 <i class="fas fa-edit ml-2"></i>
                             </a>
-                            <a style="font-weight: 800" class="btn btn-danger m-0">
-                                <i class="fas fa-trash ml-2"></i>
-                            </a>
-                        </td>
+                    <form action="{{ route('hapuswater', $item->id_watersport) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" style="font-weight: 800" class="btn btn-danger m-0"onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </form>
+                    </td>
                     </tr>
-                    
-                </tbody>
+                    @endforeach
+                    </tbody>        
             </table>
         </div>
     </div>

@@ -23,6 +23,15 @@
     </style>
     <div class="col-xl-8 col-lg-10 mx-auto">
         <h5 class="mb-4" >Tambah Produk</h5>
+        @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
         <div class="card mb-4">
             <div class="card-body">
             <form action="{{ route('store.produk') }}" method="post" enctype="multipart/form-data">
