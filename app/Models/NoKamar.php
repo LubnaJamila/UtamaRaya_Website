@@ -14,7 +14,7 @@ class NoKamar extends Model
         'id_tipe_kamar',
     ];
 
-    public function tipeKamar()
+    public function Penginapan()
     {
         return $this->belongsTo(Penginapan::class, 'id_tipe_kamar');
     }

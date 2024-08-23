@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -8,22 +9,26 @@ class AkomodasiController extends Controller
 {
      public function showHotel(){
         $pageTitleAkomodasi = 'Hotel';
+        
         return view('frontend.akomodasi.hotel', compact('pageTitleAkomodasi'));
     }
     public function showBungalauw(){
          $pageTitleAkomodasi = 'Bungalauw';
-        return view('frontend.akomodasi.bungalauw', compact('pageTitleAkomodasi'));
+         $data_penginapan = DB::table('tipe_kamar') ->get();
+        return view('frontend.akomodasi.bungalauw', compact('pageTitleAkomodasi','data_penginapan'));
     }
 
     public function showVilla(){
         $pageTitleAkomodasi = 'Villa';
-        return view('frontend.akomodasi.villa', compact('pageTitleAkomodasi'));
+        $data_penginapan = DB::table('tipe_kamar') ->get();
+        return view('frontend.akomodasi.villa', compact('pageTitleAkomodasi', 'data_penginapan'));
     }
 
     public function showCootage()
     {
         $pageTitleAkomodasi = 'Cootage';
-        return view('frontend.akomodasi.cootage', compact('pageTitleAkomodasi'));
+        $data_penginapan = DB::table('tipe_kamar') ->get();
+        return view('frontend.akomodasi.cootage', compact('pageTitleAkomodasi', 'data_penginapan'));
     }
 
     public function detailAkomodasi()

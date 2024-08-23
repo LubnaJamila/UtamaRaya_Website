@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AkomodasiController;
+use App\Http\Controllers\BookingController;
+use App\Http\Controllers\RescheduleController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ServiceController;
@@ -34,7 +37,7 @@ Route::middleware(['auth', 'umkm'])->group(function () {
     Route::get('/umkm/detail', [UMKMController::class, 'showUMKM']);
     Route::get('/umkm/produk', [UMKMController::class, 'produk'])->name('produk');
     Route::get('/produk/create', [UMKMController::class, 'create'])->name('produk.create');
-    Route::post('/produk/store',[UMKMController::class,'store'])->name('store.produk');
+    Route::post('/produk/store', [UMKMController::class, 'store'])->name('store.produk');
     Route::get('/produk/edit/{id_produk}', [UMKMController::class, 'edit'])->name('produk.edit');
     Route::put('/produk/update/{id_produk}', [UMKMController::class, 'update'])->name('produk.update');
     Route::delete('/produk_hapus/{id_produk}', [UMKMController::class, 'hapusproduk'])->name('hapus.produk');
@@ -87,22 +90,22 @@ Route::put('/akomodasi_update/{id_tipe_kamar}', [AdminController::class, 'update
 Route::delete('/akomodasi_hapus/{id_tipe_kamar}', [AdminController::class, 'hapuspenginapan'])->name('hapus.penginapan');
 //rentalbike
 Route::get('/rental-bike/create', [AdminController::class, 'createrental'])->name('rental.create');
-Route::post('/rental-bike/store',[AdminController::class,'store_rentalbike'])->name('store.rentalbike');
+Route::post('/rental-bike/store', [AdminController::class, 'store_rentalbike'])->name('store.rentalbike');
 Route::get('/rental-bike/edit/{id_rentalbike}', [AdminController::class, 'editrental'])->name('rental.edit');
 Route::put('/rental-bike/update/{id_rentalbike}', [AdminController::class, 'updaterental'])->name('rental.update');
-Route::delete('rental-bike/delete/{id_rentalbike}',[AdminController::class,'hapusrental'])->name('hapusrental');
+Route::delete('rental-bike/delete/{id_rentalbike}', [AdminController::class, 'hapusrental'])->name('hapusrental');
 //water sport
 Route::get('/watersport/create', [AdminController::class, 'createwater'])->name('water.create');
-Route::post('/watersport/store',[AdminController::class,'store'])->name('store.water');
+Route::post('/watersport/store', [AdminController::class, 'store'])->name('store.water');
 Route::get('/watersport/edit/{id_watersport}', [AdminController::class, 'editwater'])->name('water.edit');
 Route::put('/watersport/update/{id_watersport}', [AdminController::class, 'updatewater'])->name('water.update');
-Route::delete('watersport/delete/{id_watersport}',[AdminController::class,'hapuswater'])->name('hapuswater');
+Route::delete('watersport/delete/{id_watersport}', [AdminController::class, 'hapuswater'])->name('hapuswater');
 //wedding
 Route::get('/ballroom-wedding/create', [AdminController::class, 'createballroom'])->name('ballroom.create');
-Route::post('/ballroom-wedding/store',[AdminController::class,'storewedding'])->name('store.wedding');
+Route::post('/ballroom-wedding/store', [AdminController::class, 'storewedding'])->name('store.wedding');
 Route::get('/ballroom-wedding/edit/{id_wedding}', [AdminController::class, 'editballroom'])->name('ballroom.edit');
 Route::put('/ballroom-wedding/update/{id_wedding}', [AdminController::class, 'updatewedding'])->name('wedding.update');
-Route::delete('/ballroom-wedding/delete/{id_wedding}',[AdminController::class,'hapuswedding'])->name('hapuswedding');
+Route::delete('/ballroom-wedding/delete/{id_wedding}', [AdminController::class, 'hapuswedding'])->name('hapuswedding');
 //rekening
 Route::get('/master/rekening', [AdminController::class, 'rekening'])->name('rekening');
 Route::get('/rekening/create', [AdminController::class, 'index_rekening'])->name('rekening.create');
@@ -111,12 +114,40 @@ Route::post('/rekening_store', [AdminController::class, 'store_rekening'])->name
 Route::delete('/rekening_hapus/{id_rek}', [AdminController::class, 'hapusrekening'])->name('hapus.rekening');
 
 
-Route::get('/validasi/pembatalan', [ValidasiController::class, 'pembatalan']);
-Route::get('/validasi/pembayaran', [ValidasiController::class, 'pembayaran']);
+Route::get('/validasi/pembatalan', [ValidasiController::class, 'pembatalan'])->name('pembatalan');
+Route::get('/validasi/dibatalkan', [ValidasiController::class, 'dibatalkan'])->name('dibatalkan');
+Route::get('/validasi/pembatalan/pengembalian/{id}', [ValidasiController::class, 'pengembalian'])->name('pengembalian.dana');
+Route::post('/pembatalan/upload', [ValidasiController::class, 'uploadBuktiPengembalian'])->name('pembatalan.upload');
+
+Route::get('/validasi/pembayaran', [ValidasiController::class, 'pembayaran'])->name('pembayaran');
+Route::post('/validasi/update-status/{id}', [ValidasiController::class, 'updateStatus'])->name('validasi.updateStatus');
+Route::get('/validasi/booking',[ValidasiController::class, 'pembayaranBooking'])->name('pembayaran.booking');
+Route::post('/validasi/checkin/{id}', [ValidasiController::class, 'checkin'])->name('validasi.checkin');
+Route::get('/validasi/checkin',[ValidasiController::class, 'pembayaranCheckin'])->name('pembayaran.checkin');
+Route::post('/validasi/checkout/{id}', [ValidasiController::class, 'checkout'])->name('validasi.checkout');
+Route::get('/validasi/checkout',[ValidasiController::class, 'pembayaranCheckout'])->name('pembayaran.checkout');
 Route::get('/validasi/umkm', [ValidasiController::class, 'umkm']);
 
 Route::get('/pengaturan', [UserController::class, 'pengaturan']);
 Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
-Route::get('/pembatalan', [UserController::class, 'pembatalan'])->name('pembatalan');Route::get('/pengaturan/profile', [PengaturanController::class, 'profile']);
+Route::get('/pengaturan/profile', [PengaturanController::class, 'profile']);
 Route::get('/pengaturan/edit', [UserController::class, 'edit_profile']);
 Route::put('/pengaturan/edit/update', [UserController::class, 'update_profile'])->name('update_profile');
+
+//lubna
+Route::get('/penginapan', [RoomController::class, 'index'])->name('penginapan.list');
+Route::get('/kamar/{id_tipe_kamar}', [RoomController::class, 'show'])->name('kamar.show');
+Route::post('/check-availability', [RoomController::class, 'checkAvailability'])->name('check.availability');
+Route::get('/booking/form', [BookingController::class, 'showForm'])->name('booking.form');
+Route::post('/booking/submit', [BookingController::class, 'store'])->name('booking.submit');
+
+Route::get('/booking/cancel/{id}', [BookingController::class, 'showCancellationForm'])->name('booking.cancel');
+Route::post('/cancel_booking', [BookingController::class, 'cancelBooking'])->name('cancel.booking');
+
+Route::get('/reschedule/{id}', [BookingController::class, 'showRescheduleForm'])->name('reschedule.form');
+Route::put('/reschedule/{id}', [BookingController::class, 'processReschedule'])->name('reschedule');
+
+Route::post('/get-bank-details-user', [BookingController::class, 'getBankDetails'])->name('get.bank.details.user');
+
+Route::post('/reschedule/check-availability', [RescheduleController::class, 'checkAvailabilityReschedule'])->name('reschedule.checkAvailabilityReschedule');
+Route::post('/booking/update', [RescheduleController::class, 'updateBooking'])->name('reschedule.update');

@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <h5 class="card-title-content">Pengajuan Booking</h5>
                         <hr>
-                        <h1 class="card-content">{{$jumlahPengajuanBooking}}</h1>
+                        <h1 class="card-content">{{$jumlahPengajuanBooking,}}</h1>
                     </div>
                 </div>
             </a>
@@ -51,18 +51,16 @@
     </div>
 </div>
 <div class="card-body">
-    <h5 class="card-title mb-2">Data Pengajuan Booking</h5>
+    <h5 class="card-title mb-2">Data Checkin</h5>
     <div class="table-responsive">
         <table id="example" class="table table-striped" width="100%">
             <thead>
                 <tr class="text-center">
                     <th>Nama </th>
-                    <th>Nama Kamar</th>
+                    <th>Status Booking</th>
                     <th>Tanggal Masuk</th>
                     <th>Tanggal Keluar</th>
-                    <th>Min Dp</th>
                     <th>Total Harga</th>
-                    <th>Bukti Transfer</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -70,29 +68,18 @@
                 @foreach ($bookings as $booking)
                 <tr>
                     <td>{{$booking->User->nama_lengkap}}</td>
-                    <td class="text-center"><span
-                            class="btn-status">{{$booking->Nokamar->Penginapan->nama_kamar}}</span></td>
+                    <td class="text-center"><span class="btn-status">{{$booking->status_booking}}</span></td>
                     <td>{{$booking->tanggal_checkin}}</td>
                     <td>{{$booking->tanggal_checkout}}</td>
-                    <td>Rp{{ number_format($booking->min_dp, 0, ',', '.') }}</td>
                     <td>Rp{{ number_format($booking->total_harga, 0, ',', '.') }}</td>
-                    <td><a href="{{ asset($booking->bukti_tf) }}" target="_blank">
-                            <img src="{{ asset($booking->bukti_tf) }}" alt="Bukti Transfer" class="img-thumbnail"
-                                style="max-width: 150px">
-                        </a>
-                    </td>
                     <td>
-                        <form action="{{ route('validasi.updateStatus', $booking->id_booking) }}" method="POST"
+                        <form action="{{ route('validasi.checkout', $booking->id_booking) }}" method="POST"
                             style="display:inline;">
                             @csrf
                             <button type="submit" class="btn btn-info mb-1" style="font-weight: 800">
-                                Validasi
+                                Checkout
                             </button>
                         </form>
-                        <a href="https://wa.me/62{{ $booking->User->no_hp }}" target="_blank"
-                            class="btn btn-warning mb-1" style="font-weight: 800">
-                            Hub. Wa
-                        </a>
                     </td>
                 </tr>
                 @endforeach

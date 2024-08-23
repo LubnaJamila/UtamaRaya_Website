@@ -55,7 +55,7 @@
 
 </div>
 <div class="card-body">
-    <h5 class="card-title mb-2">Data Pengajuan Pembatalan</h5>
+    <h5 class="card-title mb-2">Data Dibatalkan</h5>
     <div class="table-responsive">
         <table id="example" class="table table-striped" width="100%">
             <thead>
@@ -65,9 +65,8 @@
                     <th>No Kamar</th>
                     <th>Tanggal Checkin</th>
                     <th>Tanggal Checkout</th>
-                    <th>Bukti Transfer DP</th>
                     <th>Data Rekening Pengembalian</th>
-                    <th>Action</th>
+                    <th>Bukti Pengembalian</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,66 +78,17 @@
                     <td class="text-center"><span class="btn-status">{{$booking->Nokamar->no_kamar}}</span></td>
                     <td>{{$booking->tanggal_checkin}}</td>
                     <td>{{$booking->tanggal_checkout}}</td>
-                    <td><a href="{{ asset($booking->bukti_tf) }}" target="_blank">
-                            <img src="{{ asset($booking->bukti_tf) }}" alt="Bukti Transfer" class="img-thumbnail"
-                                style="max-width: 150px">
-                        </a>
-                    </td>
                     <td>{{ $booking->nama_bank_tamu }} - {{ $booking->no_rek_tamu }} - {{ $booking->nama_pemilik_tamu }}
+                    <td><a href="{{ asset($booking->bukti_pengembalian) }}" target="_blank">
+                            <img src="{{ asset($booking->bukti_pengembalian) }}" alt="Bukti Transfer"
+                                class="img-thumbnail" style="max-width: 150px">
+                        </a>
                     </td>
-                    <td>
-                        <a href="{{ route('pengembalian.dana', $booking->id_booking) }}" class="btn btn-info mb-1"
-                            style="font-weight: 800">
-                            Validasi
-                        </a>
-                        <a href="https://wa.me/62{{ $booking->User->no_hp }}" target="_blank"
-                            class="btn btn-warning mb-1" style="font-weight: 800">
-                            Hub. Wa
-                        </a>
                     </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
-
-        <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="uploadModalLabel">Upload Bukti Pengembalian</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="uploadForm" action="{{ route('pembatalan.upload') }}" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="id" id="recordId">
-                            <div class="mb-3">
-                                <label for="proofImage" class="form-label">Pilih Bukti Pengembalian</label>
-                                <input type="file" class="form-control" id="proofImage" name="proof_image" required>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Upload</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
 @endsection
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var uploadModal = new bootstrap.Modal(document.getElementById('uploadModal'));
-
-    document.querySelectorAll('.btn-info').forEach(function(button) {
-        button.addEventListener('click', function() {
-            var bookingId = this.getAttribute('data-id');
-            document.getElementById('recordId').value = bookingId;
-            uploadModal.show();
-        });
-    });
-});
-</script>

@@ -6,7 +6,7 @@
         <div class="container position-relative">
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-6 text-center">
-                    <h2 style="font-weight: 1000">Akomodasi Type Hotel</h2>
+                    <h2 style="font-weight: 1000">Daftar Penginapan</h2>
                 </div>
             </div>
         </div>
@@ -14,41 +14,9 @@
 </div>
 <!-- Breadcrumbs End -->
 
-<!-- Search Start -->
-<div class="container-fluid search-box-container">
-    <div class="search-box-akomodasi">
-        <div class="col-lg-3 col-md-6 search-item " style="margin-right:20px">
-            <i class="fa-solid fa-calendar-check" style="color: #8b0000;"></i>
-            <div class="search-item-text">
-                <label for="checkin">Check In</label>
-                <input type="date" id="checkin" class="form-control select-with-red-arrow">
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 search-item ">
-            <i class="fa-solid fa-landmark" style="color: #8b0000;"></i>
-            <div class="search-item-text w-100">
-                <label for="duration">Durasi</label>
-                <select id="duration" class="form-control select-with-red-arrow">
-                    <option value="" disabled selected>---------</option>
-                </select>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 search-item ">
-            <i class="fa-solid fa-calendar-check" style="color: #8b0000;"></i>
-            <div class="search-item-text">
-                <label for="checkout">Check Out</label>
-                <input type="date" id="checkout" class="form-control" readonly>
-            </div>
-        </div>
-        <div class="col-lg-3 col-md-6 search-item" style="width: 120px">
-            <button type="button" class="btn btn-search">Search</button>
-        </div>
-    </div>
-</div>
-<!-- Search End -->
-
 
 <!-- Package Start -->
+@foreach ($tipeKamar as $type)
 <div class="container-fluid akomodasi">
     <div class="container">
         <div class="row">
@@ -57,55 +25,45 @@
                     <div id="carouselExampleControls" class="carousel slide">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="{{ asset('frontend/assets/img/water_page.png') }}" class="d-block w-100"
-                                    alt="Hotel Image 1">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('frontend/assets/img/umkm_page.png') }}" class="d-block w-100"
-                                    alt="Hotel Image 2">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{{ asset('frontend/assets/img/hotel_page.png') }}" class="d-block w-100"
-                                    alt="Hotel Image 3">
+                                <img src="{{ asset($type->gambar_kamar) }}" class="d-block w-100" alt="Hotel Image 1">
                             </div>
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                            data-bs-slide="prev">
-                            <i class="fa-solid fa-caret-left"></i>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                            data-bs-slide="next">
-                            <i class="fa-solid fa-caret-right"></i>
-                        </button>
                     </div>
-                    <span class="category_hotel mb-2">Hotel</span>
                     <div class="title mb-3" style="display: flex; justify-content: space-between; align-items: center;">
-                        <h4 style="margin: 0;">Hotel Sunset Deluxe</h4>
+                        <h4 style="margin: 0;">{{ $type->nama_kamar }}</h4>
                         <div>
-                            <h6 style="text-decoration: line-through; color: #a9a9a9; font-size: 14px; margin: 0;">Rp.
-                                500.000</h6>
-                            <h6 style="color: #8b0000; font-size: 18px; margin: 0;">Rp. 400.000</h6>
+                            <h6 style="color: #8b0000; font-size: 18px; margin: 0;">Weekends:
+                                Rp{{ number_format($type->harga_weekend, 0, ',', '.') }}</h6>
+                            <h6 style="color: #8b0000; font-size: 18px; margin: 0;">Weekdays:
+                                Rp{{ number_format($type->harga_weekdays, 0, ',', '.') }}</h6>
                         </div>
                     </div>
                     <ul>
-                        <li><i class="fa-solid fa-wifi" style="color: #8b0000;"></i><span> Wifi</span></li>
-                        <li><i class="fa-solid fa-wind" style="color: #8b0000;"></i><span> AC</span></li>
-                        <li><i class="fa-solid fa-utensils" style="color: #8b0000;"></i><span> Restaurant</span></li>
-                        <li><i class="fa-solid fa-person-biking" style="color: #8b0000;"></i><span> Rental Sepeda</span>
-                        </li>
-                        <li><i class="fa-solid fa-person-swimming" style="color: #8b0000;"></i><span> Water Sport</span>
-                        </li>
+                        <li><i class="fa-solid fa-door-closed" style="color: #8b0000;"></i><span>Jumlah Ruangan:
+                                {{ $type->jumlah_ruangan }}</span></li>
                     </ul>
+
+                    <h5 style="color: #8b0000; font-size: 18px;">Deskripsi</h5>
+                    @php
+                    $deskripsiArray = json_decode($type->deskripsi, true);
+                    @endphp
+
+                    @foreach($deskripsiArray as $deskripsi)
+                    <li>{{ $deskripsi }}</li>
+                    @endforeach
+
                     <div class="button-container">
                         <button type="button" class="btn btn-detail" data-bs-toggle="modal"
                             data-bs-target="#detailModal">Lihat Detail</button>
-                        <a href="/akomodasi/booking" class="btn-pilih">Pesan Sekarang</a>
+                        <a href="{{ route('kamar.show', ['id_tipe_kamar' => $type->id_tipe_kamar]) }}"
+                            class="btn-pilih">Pesan Sekarang</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endforeach
 <!-- Modal -->
 <div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
