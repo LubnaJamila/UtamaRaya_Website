@@ -5,41 +5,22 @@
             <div class="container position-relative">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6 text-center">
-                        <h2 style="font-weight: 1000">Ballroom Wedding</h2>
+                        <h2 style="font-weight: 1000;  font-size: 35px;">Ballroom Wedding</h2>
                     </div>
                 </div>
             </div>
         </div>
+        <nav>
+            <div class="container">
+                <ol>
+                    <li><a href="/" style="font-weight: 1000">Home</a></li>
+                    <li style="font-weight: 1000">Ballroom Wedding</li>
+                </ol>
+            </div>
+        </nav>
     </div>
 
-    <div class="container-fluif search-box-container">
-        <div class="search-box">
-            <div class="search-item col-lg-5 col-md-6">
-                <i class="fa-solid fa-landmark" style="color: #8b0000;"></i>
-                <div class="search-item-text w-200">
-                    <label for="menu">Paket</label>
-                    <select id="menu" class="form-control select-with-red-arrow">
-                        <option value="" disabled selected>---------</option> <!-- Opsi default kosong -->
-                        <option value="package-1">Royal Ballroom</option>
-                        <option value="package-2">Teras Pantai</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="search-item col-lg-5 col-md-6">
-                <i class="fa-solid fa-calendar-check" style="color: #b80000;"></i>
-                <div class="search-item-text">
-                    <label for="date">Tanggal</label>
-                    <input type="date" id="date" class="form-control select-with-red-arrow">
-                </div>
-            </div>
-            <div class="search-item col-lg-2 col-md-6">
-                <button type="button" class="btn btn-search">Search</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-fluid services">
+    <div class="container-fluid services mt-4">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="section-title pe-3 ps-3">Paket</h6>
@@ -48,7 +29,7 @@
         </div>
         <div class="card-container">
             <div class="col-lg-4 col-md-4">
-                <img src="{{ asset('frontend/assets/img/wedding_page.png') }}"  class="card-image">
+                <img src="{{ asset('frontend/assets/img/wedding_page.png') }}" class="card-image">
             </div>
             <div class="card-item">
                 <div class="card-item-content row align-items-center">
@@ -91,7 +72,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             var today = new Date();
             var day = String(today.getDate()).padStart(2, '0');
-            var month = String(today.getMonth() + 1).padStart(2, '0'); // Januari adalah 0!
+            var month = String(today.getMonth() + 1).padStart(2, '0');
             var year = today.getFullYear();
 
             var todayDate = year + '-' + month + '-' + day;

@@ -70,7 +70,7 @@ Route::get('/pengaturan/ubah_password', [PengaturanController::class, 'ubah_pass
 Route::put('/pengaturan/ubah_password/update', [PengaturanController::class, 'update_password'])->name('update_password');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/login', [AuthController::class, 'authenticate'])->name('login.form');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('login.authenticate');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'registerpost'])->name('register.post');

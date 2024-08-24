@@ -1,12 +1,12 @@
 @extends('body')
 @section('content')
-     <!-- Breadcrumbs Start-->
+    <!-- Breadcrumbs Start-->
     <div class="breadcrumbs">
         <div class="page-header d-flex align-items-center">
             <div class="container position-relative">
                 <div class="row d-flex justify-content-center">
                     <div class="col-lg-6 text-center">
-                        <h2 style="font-weight: 1000">About Us</h2>
+                        <h2 style="font-weight: 1000; font-size: 35px;">About Us</h2>
                     </div>
                 </div>
             </div>

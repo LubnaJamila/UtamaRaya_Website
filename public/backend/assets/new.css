@@ -45,6 +45,11 @@ h1 {
     transition: margin-left .25s ease-in-out;
 }
 
+.toggle-btn:focus {
+    outline: none;
+}
+
+
 #sidebar {
     width: 70px;
     min-width: 70px;
@@ -572,7 +577,7 @@ a.sidebar-link {
     border-bottom: 0 solid #d9dee3;
 }
 
-.container i{
+.container i {
     font-size: 16px;
 }
 
@@ -583,4 +588,9 @@ a.sidebar-link {
 .card-body {
     flex: 1 1 auto;
     padding: 1.5rem 1.5rem;
+}
+
+.table-responsive td{
+    color: black !important;
+    text-transform: none;
 }

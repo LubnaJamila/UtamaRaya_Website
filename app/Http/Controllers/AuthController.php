@@ -14,9 +14,9 @@ class AuthController extends Controller
         'email' => 'required|email|exists:users,email',
         'password' => 'required|string|min:3',
     ], [
-        'email.required' => 'Email wajib diisi',
-        'email.exists' => 'Email tidak terdaftar',
-        'password.required' => 'Password wajib diisi',
+        'email.required' => 'Email wajib diisi!',
+        'email.exists' => 'Email tidak terdaftar!',
+        'password.required' => 'Password wajib diisi!',
         'password.min' => 'Password harus diisi minimal 3 karakter',
     ]);
 
@@ -32,12 +32,17 @@ class AuthController extends Controller
         }
     }
 
-    return redirect()->route('login')->with('loginError', 'Login gagal! Periksa kembali email dan password Anda.');
+   return redirect()->back()->withErrors([
+        'loginError' => 'Email atau password tidak sesuai.',
+    ])->withInput();
 }
     public function register(){
         return view('frontend.register');
     }
 
+    public function login(){
+        return view('frontend.login');
+    }
       public function registerpost(Request $request)
     {
         // dd($request->all());
@@ -53,10 +58,10 @@ class AuthController extends Controller
             'email.email' => 'Email harus berformat email yang valid',
             'email.unique' => 'Email sudah digunakan',
             'password.required' => 'Password wajib diisi',
-            'password.min' => 'Password harus terdiri dari minimal 5 karakter',
+            'password.min' => 'Password harus terdiri dari minimal 3 karakter',
             'password_confirmation.required' => 'Konfirmasi password wajib diisi',
             'password_confirmation.confirmed' => 'Konfirmasi password tidak sama',
-            'password_confirmation.min' => 'Konfirmasi password harus terdiri dari minimal 5 karakter',
+            'password_confirmation.min' => 'Konfirmasi password harus terdiri dari minimal 3 karakter',
             'nama_lengkap.required' => 'Nama lengkap wajib diisi',
             'no_hp.required' => 'No Hp wajib diisi',
         ]);

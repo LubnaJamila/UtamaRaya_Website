@@ -8,45 +8,43 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-    .card-container {
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+        .card-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-    .card-img {
-        max-width: 100%;
-        height: auto;
-    }
+        .card-img {
+            max-width: 100%;
+            height: auto;
+        }
 
-    .card-body {
-        padding: 20px;
-    }
+        .card-body {
+            padding: 20px;
+        }
 
-    .header-container {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
+        .header-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
-    .header-img {
-        flex-shrink: 0;
-        max-width: 300px;
-        /* Atur lebar gambar sesuai kebutuhan */
-        border-radius: 10px;
-        /* Radius sudut gambar jika diinginkan */
-    }
+        .header-img {
+            flex-shrink: 0;
+            max-width: 300px;
+            border-radius: 10px;
+        }
 
-    .date-inputs {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        margin-top: 20px;
-    }
+        .date-inputs {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 20px;
+        }
 
-    .date-inputs input {
-        flex: 1;
-    }
+        .date-inputs input {
+            flex: 1;
+        }
     </style>
 </head>
 
@@ -54,9 +52,9 @@
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
         <div class="row card-container">
             <div class="card-body">
-                <!-- Header dengan Gambar dan Nama Kamar -->
                 <div class="header-container">
-                    <img src="{{ asset('gambar/kamar.png') }}" class="header-img" alt="Gambar Kamar">
+                    <img src="{{ asset('gambar/kamar.png') }}" class="header-img" alt="Gambar Kamar"
+                        style="max-width: 200px">
                     <div>
                         <h5 class="card-title">{{ $tipeKamar->nama_kamar }}</h5>
                         <p class="card-text">Harga Weekdays:
@@ -73,10 +71,10 @@
                     <input type="hidden" name="room_id" value="{{ $tipeKamar->id_tipe_kamar }}">
                     <div class="date-inputs">
                         <div class="col-sm-4">
-                            <label for="checkInDate" class="form-label">Tanggal Check-In</label>
+                            <label for="checkInDate" class="form-label" style="margin-left: 20px">Tanggal Check-In</label>
                             <input type="date" class="form-control" id="checkInDate" name="check_in_date" required>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" style="margin-left: 20px">
                             <label for="checkOutDate" class="form-label">Tanggal Check-Out</label>
                             <input type="date" class="form-control" id="checkOutDate" name="check_out_date" required>
                         </div>
@@ -85,7 +83,6 @@
                         </div>
                     </div>
                 </form>
-
             </div>
         </div>
     </div>

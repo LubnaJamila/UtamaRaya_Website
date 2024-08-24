@@ -105,29 +105,6 @@ body {
     font-weight: bold;
 }
 
-.language-icon {
-    font-size: 16px;
-    margin-right: 5px;
-}
-
-.flag-icon {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-size: cover;
-    border-radius: 50%;
-    margin-right: 5px;
-    border: #000000;
-}
-
-.flag-icon-id {
-    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/id.svg');
-}
-
-.flag-icon-us {
-    background-image: url('https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.4.6/flags/4x3/us.svg');
-}
-
 .btn-outline-black {
     color: var(--color-red);
     border-color: var(--color-red);
@@ -201,9 +178,6 @@ body {
 
 }
 
-.language-dropdown {
-    margin-left: auto;
-}
 
 .dropdown-menu.show {
     display: block;
@@ -505,7 +479,6 @@ body {
 .map-responsive {
     position: relative;
     padding-bottom: 56.25%;
-    /* 16:9 aspect ratio */
     height: 0;
     overflow: hidden;
     max-width: 100%;
@@ -529,7 +502,7 @@ body {
     background-size: cover;
     background-attachment: fixed;
     padding: 150px 0 50px 0;
-    height: 400px;
+    height: 300px;
     background-image: url(../img/bg-ur.png);
 }
 
@@ -540,7 +513,7 @@ body {
     background-size: cover;
     background-attachment: fixed;
     padding: 100px 0 50px 0;
-    height: 200px;
+    height: 300px;
     background-image: url(../img/hotel_page.png);
 }
 
@@ -563,7 +536,7 @@ body {
     background-size: cover;
     background-attachment: fixed;
     padding: 150px 0 50px 0;
-    height: 400px;
+    height: 300px;
     z-index: -5;
     background-color: #000000;
     background-image: url(../img/ballroom.png);
@@ -577,7 +550,7 @@ body {
     background-size: cover;
     background-attachment: fixed;
     padding: 150px 0 50px 0;
-    height: 400px;
+    height: 300px;
     z-index: -5;
     background-color: #000000;
     background-image: url(../img/water_page.png);
@@ -591,7 +564,7 @@ body {
     background-size: cover;
     background-attachment: fixed;
     padding: 150px 0 50px 0;
-    height: 400px;
+    height: 300px;
     z-index: -5;
     background-color: #000000;
     background-image: url(../img/umkm_page.png);
@@ -609,6 +582,7 @@ body {
     inset: 0;
 }
 
+.breadcrumbs .page-header-wedding h2,
 .breadcrumbs .page-header-booking h2 {
     font-size: 35px;
     color: var(--color-primary);

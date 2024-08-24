@@ -12,22 +12,20 @@
              <div class="col-lg-2 col-6 footer-links">
                  <h4>Useful Links</h4>
                  <ul>
-                     <li id="home-link"><a href="index.htl">Home</a></li>
-                     <li id="about-link"><a href="about.html">About us</a></li>
-                     <li id="services-link"><a href="services.html">Services</a></li>
-                     <li id="services-link"><a href="services.html">Package</a></li>
-                     <li id="contact-link"><a href="contact.html">Contact</a></li>
+                     <li id="home-link"><a href="/">Home</a></li>
+                     <li id="about-link"><a href="/about">About us</a></li>
+                     <li id="services-link"><a href="/service/ballroom">Services</a></li>
+                     <li id="services-link"><a href="/penginapan">Penginapan</a></li>
+                     <li id="contact-link"><a href="/umkm">UMKM</a></li>
                  </ul>
              </div>
 
              <div class="col-lg-2 col-6 footer-links">
                  <h4>Layanan Kami</h4>
                  <ul>
-                     <li id="home-link"><a href="index.htl">Home</a></li>
-                     <li id="about-link"><a href="about.html">About us</a></li>
-                     <li id="services-link"><a href="services.html">Services</a></li>
-                     <li id="services-link"><a href="services.html">Package</a></li>
-                     <li id="contact-link"><a href="contact.html">Contact</a></li>
+                     <li id="home-link"><a href="/service/ballroom">Ballroom Wedding</a></li>
+                     <li id="about-link"><a href="/service/watersport">Water Sport</a></li>
+                     <li id="services-link"><a href="/service/rental-bike">Rental Bike</a></li>
                  </ul>
              </div>
 
