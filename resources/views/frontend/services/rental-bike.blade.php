@@ -32,33 +32,15 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="card-item">
-                        <img src="{{ asset('frontend/assets/img/bike_page.png') }}" alt="rentalbike">
-                        <h4 class="title">Sepeda Tando Dewasa</h4>
-                        <p class="price">Rp. 50.000 /org</p>
+            @foreach($rentalBikes as $rentalBike)
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card-item">
+                        <img src="{{ asset($rentalBike->gambar_rentalbike) }}" alt="{{ $rentalBike->nama_rentalbike }}">
+                            <h4 class="title">{{ $rentalBike->nama_rentalbike }}</h4>
+                            <p class="price">Rp. {{ number_format($rentalBike->harga_rentalbike, 0, ',', '.') }} /org</p>
+                        </div>
                     </div>
-                </div>
-                 <div class="col-lg-3 col-md-6">
-                    <div class="card-item">
-                        <img src="{{ asset('frontend/assets/img/bike_page.png') }}" alt="rentalbike">
-                        <h4 class="title">Sepeda Tando Dewasa</h4>
-                        <p class="price">Rp. 50.000 /org</p>
-                    </div>
-                </div>
-                 <div class="col-lg-3 col-md-6">
-                    <div class="card-item">
-                        <img src="{{ asset('frontend/assets/img/bike_page.png') }}" alt="rentalbike">
-                        <h4 class="title">Sepeda Tando Dewasa</h4>
-                        <p class="price">Rp. 50.000 /org</p>
-                    </div>
-                </div>
-            </div>
-            <div class="btn-right">
-                <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20memesan%20ruangan%20untuk%20tanggal%20xx"
-                    target="_blank" class="btn-whatsapp">
-                    <i class="fa-brands fa-whatsapp"></i> Klik Untuk Pesan
-                </a>
+                @endforeach
             </div>
         </div>
 

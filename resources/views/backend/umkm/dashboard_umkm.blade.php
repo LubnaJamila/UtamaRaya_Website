@@ -9,7 +9,7 @@
         <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title text-primary">Status Langganan</h5>
+                    <h5 class="card-title text-danger">Status Langganan</h5>
                     @foreach ($statuses as $status)
                     <p class="card-text">{{ $status }}</p>
                     @endforeach
@@ -21,7 +21,7 @@
         <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title text-primary">Tanggal Mulai</h5>
+                    <h5 class="card-title text-danger">Tanggal Mulai</h5>
                     @foreach ($startDates as $startDate)
                     <p class="card-text">{{ $startDate }}</p>
                     @endforeach
@@ -33,7 +33,7 @@
         <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title text-primary">Tanggal Akhir</h5>
+                    <h5 class="card-title text-danger">Tanggal Akhir</h5>
                     @foreach ($endDates as $endDate)
                     <p class="card-text">{{ $endDate }}</p>
                     @endforeach

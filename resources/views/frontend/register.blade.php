@@ -96,7 +96,7 @@
                                 </div>
 
                             </div>
-                            <button class="btn btn-login w-100 mb-0" type="submit">Regsiter UMKM</button>
+                            <button class="btn btn-login w-100 mb-0" type="submit">Regsiter</button>
                             @if (session()->has('success'))
                                 <div class="alert alert-success mt-2" role="alert">
                                     {{ session()->get('success') }}
@@ -159,9 +159,10 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="mb-3">
                                         <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-                                        <select class="form-control" id="jenis_kelamin" name="jenis_kelamin"
-                                            required>
-
+                                        <select  id="jenis_kelamin" name="jenis_kelamin" class="form-control" required>
+                                            <option value="">Pilih Jenis Kelamin</option>
+                                            <option value="pria">Pria</option>
+                                            <option value="wanita">Wanita</option>
                                         </select>
                                     </div>
                                 </div>

@@ -32,22 +32,22 @@
             </div>
 
             <div class="row">
+            @foreach($products as $product)
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="umkm-card">
-                        <img src="{{ asset('frontend/assets/img/umkm_page.png') }}" alt="Product Image"
-                            class="img-fluid rounded">
+                        <img src="{{ asset($product->gambar_produk) }}" alt="Product Image" class="img-fluid rounded">
                         <div class="card-body mt-2">
-                            <h5 class="umkm-card-title">Toko Aksesoris Luna</h5>
-                            <p class="umkm-card-description">Berbagai aneka macam tas dapat anda temui di toko kami. Kami
-                                menyediakan
-                                berbagai macam desain tas dan banyak lagi produk lainnya...</p>
-                            <div class="umkm-card-price">Rp 50.000 - 150.000</div>
-                            <div class="d-flex justify-content-end">
-                                <a href="/umkm/detail" type="button" class="umkm-card-link-button">Lihat Toko</a>
-                            </div>
+                            <h5 class="umkm-card-title">{{ $product->nama_produk }}</h5>
+                            <p class="umkm-card-description">{{ Str::limit($product->deskripsi_produk, 100, '...') }}</p>
+                            <div class="umkm-card-price">Rp {{ number_format($product->harga_produk, 0, ',', '.') }}</div>
+                            <p class="umkm-card-phone">Silahkan Hubungi Nomer Telepon ini untuk Pemesanan {{ $product->no_hp }}</p>
                         </div>
                     </div>
                 </div>
+            @endforeach
+        </div>
+
+
 
             </div>
             <div class="btn-right">

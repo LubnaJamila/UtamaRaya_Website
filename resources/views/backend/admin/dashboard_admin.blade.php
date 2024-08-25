@@ -49,7 +49,7 @@
                     <div class="card-body">
                         <h5 class="card-title-content">Check In</h5>
                         <hr>
-                        <h1 class="card-content">50</h1>
+                        <p class="card-text">{{ $total_checkin }}</p>
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                     <div class="card-body">
                         <h5 class="card-title-content">UMKM Aktif</h5>
                         <hr>
-                         <h1 class="card-content">50</h1>
+                        <p class="card-text">{{ $total_umkm }}</p>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                     <div class="card-body">
                         <h5 class="card-title-content">New Booking</h5>
                         <hr>
-                         <h1 class="card-content">50</h1>
+                        <p class="card-text">{{ $total_booking }}</p>
                     </div>
                 </div>
             </div>
@@ -99,117 +99,117 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        const bookingData = @json($monthlyBookings);
-        const bookingLabels = bookingData.map(item => item.month);
-        const bookingValues = bookingData.map(item => item.total);
+       // Data untuk grafik booking per bulan
+    const bookingData = @json($monthlyBookings);
+    const bookingLabels = bookingData.map(item => item.month);
+    const bookingValues = bookingData.map(item => item.total);
 
-        const bookingCtx = document.getElementById('bookingChart').getContext('2d');
-        const bookingChart = new Chart(bookingCtx, {
-            type: 'line',
-            data: {
-                labels: bookingLabels,
-                datasets: [{
-                    label: 'Total Booking',
-                    data: bookingValues,
-                    backgroundColor: '#8B0000',
-                    borderColor: '#8B0000',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return context.dataset.label + ': ' + context.raw;
-                            }
-                        }
-                    }
+    const bookingCtx = document.getElementById('bookingChart').getContext('2d');
+    const bookingChart = new Chart(bookingCtx, {
+        type: 'line',
+        data: {
+            labels: bookingLabels,
+            datasets: [{
+                label: 'Total Booking',
+                data: bookingValues,
+                backgroundColor: 'rgba(139, 0, 0, 0.2)',
+                borderColor: '#8B0000',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.1 // Membuat garis lebih halus
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
                 },
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        grid: {
-                            color: 'rgba(255, 99, 132, 0.2)',
-                            borderColor: 'rgba(255, 99, 132, 0.5)'
-                        },
-                        ticks: {
-                            color: '#000'
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: 'rgba(255, 99, 132, 0.2)',
-                            borderColor: 'rgba(255, 99, 132, 0.5)'
-                        },
-                        ticks: {
-                            color: '#000'
-                        }
-                    }
-                },
-                layout: {
-                    padding: 20
-                },
-                elements: {
-                    line: {
-                        borderWidth: 4
-                    },
-                    point: {
-                        radius: 5
-                    }
-                }
-            }
-        });
-
-        const umkmData = @json($umkmStatuses);
-        const umkmLabels = umkmData.map(item => item.status);
-        const umkmValues = umkmData.map(item => item.count);
-
-        const umkmColors = [
-            '#FFD700',
-            '#1E90FF',
-            '#ff0000'
-        ];
-
-        const umkmBorders = [
-            '#FFD700',
-            '#1E90FF',
-            '#ff0000'
-        ];
-
-        const umkmCtx = document.getElementById('umkmChart').getContext('2d');
-        const umkmChart = new Chart(umkmCtx, {
-            type: 'pie',
-            data: {
-                labels: umkmLabels,
-                datasets: [{
-                    label: 'Status UMKM',
-                    data: umkmValues,
-                    backgroundColor: umkmColors,
-                    borderColor: umkmBorders,
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return context.label + ': ' + context.raw;
-                            }
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.raw;
                         }
                     }
                 }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 0.5)'
+                    },
+                    ticks: {
+                        color: '#000'
+                    }
+                },
+                y: {
+                    grid: {
+                        color: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 0.5)'
+                    },
+                    ticks: {
+                        color: '#000',
+                        stepSize: 50 // Menentukan jarak antara tiap nilai pada sumbu Y
+                    }
+                }
+            },
+            layout: {
+                padding: 20
+            },
+            elements: {
+                line: {
+                    borderWidth: 4
+                },
+                point: {
+                    radius: 5
+                }
             }
-        });
+        }
+    });
+
+       // Data untuk grafik status UMKM
+    const umkmData = @json($umkmStatuses);
+    const umkmLabels = umkmData.map(item => item.status);
+    const umkmValues = umkmData.map(item => item.count);
+
+    const umkmColors = [
+        '#FFD700', // Warna untuk status pertama
+        '#1E90FF', // Warna untuk status kedua
+        '#ff0000', // Warna untuk status ketiga
+        // Tambahkan warna lain jika ada status tambahan
+    ];
+
+    const umkmBorders = umkmColors; // Gunakan warna yang sama untuk border
+
+    const umkmCtx = document.getElementById('umkmChart').getContext('2d');
+    const umkmChart = new Chart(umkmCtx, {
+        type: 'pie', // Bisa juga 'doughnut'
+        data: {
+            labels: umkmLabels,
+            datasets: [{
+                label: 'Status UMKM',
+                data: umkmValues,
+                backgroundColor: umkmColors,
+                borderColor: umkmBorders,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top', // Bisa juga 'bottom' atau 'right'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.label + ': ' + context.raw;
+                        }
+                    }
+                }
+            }
+        }
+    });
     </script>
 @endsection

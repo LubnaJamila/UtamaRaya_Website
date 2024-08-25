@@ -2,7 +2,7 @@
 @section('content')
 <div class="container dashboard-umkm mt-4">
         <h5 class="card-title mb-2">Produk Anda</h5>
-        @if($product_count >= 3)
+        @if($product_count >= 5)
             <button type="button" class="btn btn-info" disabled>
                 <i class="fas fa-plus"></i> Tambah Produk
             </button>

@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Booking;
+use App\Models\langganan;
 use App\Models\NoKamar;
 use App\Models\Penginapan;
 use App\Models\RekPembayaran;
@@ -14,20 +16,23 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-   public function index(){
-    $monthlyBookings = [
-        ['month' => 'January', 'total' => 150],
-        ['month' => 'February', 'total' => 200],
-        ['month' => 'March', 'total' => 175],
-    ];
+    public function index(){
+        $monthlyBookings = Booking::selectRaw('MONTHNAME(created_at) as month, COUNT(*) as total')
+        ->groupBy('month')
+        ->orderByRaw('MIN(created_at)')
+        ->get();
+    
+        $umkmStatuses = DB::table('langganan')
+        ->selectRaw('status_langganan as status, COUNT(*) as count')
+        ->groupBy('status')
+        ->get();
 
-    $umkmStatuses = [
-        ['status' => 'Menunggu Pengaktifan', 'count' => 30],
-        ['status' => 'Sudah Aktif', 'count' => 50],
-        ['status' => 'Butuh Perpanjangan', 'count' => 20]
-    ];
-    return view('backend.admin.dashboard_admin', compact('monthlyBookings', 'umkmStatuses'));
-}
+           // Ambil data dari tabel umkm yang berstatus aktif
+           $total_umkm = langganan::where('status_langganan', 'aktif')->count();
+           $total_checkin=Booking::where('status_booking','checkin')->count();
+           $total_booking=Booking::where('status_booking','pengajuan_booking')->count();
+        return view('backend.admin.dashboard_admin', compact('monthlyBookings', 'umkmStatuses','total_umkm','total_checkin','total_booking'));
+    }
 
 public function akomodasi(){
     $data_penginapan = DB::table('tipe_kamar') ->get();

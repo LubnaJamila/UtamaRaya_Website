@@ -147,7 +147,7 @@
     </nav>
     <div class="container content-container mt-5">
         <div class="container dashboard-umkm mt-4 text-center">
-            <h2 class="card-title mb-2">Dashboard Langganan UMKM</h5>
+            <h2 class="card-title mb-2">Langganan UMKM</h5>
                 <p>Nikmati fitur UMKM dengan pilih paket berlangganan terlebih dahulu!</p>
         </div>
         <hr>

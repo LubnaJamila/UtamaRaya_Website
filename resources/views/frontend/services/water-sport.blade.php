@@ -29,59 +29,19 @@
     <!-- Package Start -->
     <div class="container-fluid watersport py-5">
         
-        <div class="container">
+    <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="card-item">
-                        <img src="{{ asset('frontend/assets/img/water_page.png') }}" alt="watersport">
-                        <h4 class="title">Banana Boat</h4>
-                        <p class="price">Rp. 50.000 /org</p>
+            @foreach($watersport as $watersports)
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card-item">
+                        <img src="{{ asset($watersports->gambar_watersport) }}" alt="{{ $watersports->nama_watersport }}">
+                            <h4 class="title">{{ $watersports->nama_watersport }}</h4>
+                            <p class="price">Rp. {{ number_format($watersports->harga_watersport, 0, ',', '.') }} /org</p>
+                            <p class="title">{{ $watersports->deskripsi }}</p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <div class="card-item">
-                        <img src="{{ asset('frontend/assets/img/water_page.png') }}" alt="watersport">
-                        <h4 class="title">Banana Boat</h4>
-                        <p class="price">Rp. 50.000 /org</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <div class="card-item">
-                        <img src="{{ asset('frontend/assets/img/water_page.png') }}" alt="watersport">
-                        <h4 class="title">Banana Boat</h4>
-                        <p class="price">Rp. 50.000 /org</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <div class="card-item">
-                        <img src="{{ asset('frontend/assets/img/water_page.png') }}" alt="watersport">
-                        <h4 class="title">Banana Boat</h4>
-                        <p class="price">Rp. 50.000 /org</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <div class="card-item">
-                        <img src="{{ asset('frontend/assets/img/water_page.png') }}" alt="watersport">
-                        <h4 class="title">Banana Boat</h4>
-                        <p class="price">Rp. 50.000 /org</p>
-                    </div>
-                </div>
-
-                <div class="col-lg-3 col-md-6">
-                    <div class="card-item">
-                        <img src="{{ asset('frontend/assets/img/water_page.png') }}" alt="watersport">
-                        <h4 class="title">Banana Boat</h4>
-                        <p class="price">Rp. 50.000 /org</p>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
         </div>
-
-
         <!-- Package End -->
     @endsection
