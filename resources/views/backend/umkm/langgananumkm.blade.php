@@ -145,6 +145,7 @@
             </li>
         </ul>
     </nav>
+    @include('backend.sidebar')
     <div class="container content-container mt-5">
         <div class="container dashboard-umkm mt-4 text-center">
             <h2 class="card-title mb-2">Langganan UMKM</h5>

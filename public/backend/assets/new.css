@@ -590,7 +590,153 @@ a.sidebar-link {
     padding: 1.5rem 1.5rem;
 }
 
-.table-responsive td{
+.table-responsive td {
     color: black !important;
     text-transform: none;
+}
+
+.akomodasidetail {
+    width: 100%;
+}
+
+.akomodasidetail .card-container {
+    margin-top: -25px;
+    z-index: 1;
+    position: relative;
+    width: 100%;
+}
+
+.akomodasidetail .card {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 40px;
+}
+
+.akomodasidetail .card-detail {
+    box-shadow: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 2px solid;
+    border-color: var(--color-primary);
+}
+
+.akomodasidetail .card-title-detail {
+    box-shadow: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 2px solid;
+    border-color: var(--color-primary);
+}
+
+.akomodasidetail .card-title-detail .text {
+    font-weight: 800;
+    color: var(--color-red);
+    font-family: var(--font-second);
+}
+
+.akomodasidetail .card-body-title h5 {
+    text-align: center;
+    font-weight: 900;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    color: var(--color-primary);
+}
+
+.akomodasidetail .card-body h5 {
+    text-align: start;
+    font-weight: 900;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-red);
+}
+
+.akomodasidetail .date-card {
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    padding: 10px;
+    width: 120px;
+}
+
+.akomodasidetail .divider-line {
+    height: 1px;
+    width: 20px;
+    background-color: #ced4da;
+}
+
+.stepper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.stepper .step {
+    display: flex;
+    align-items: center;
+}
+
+.stepper .step .circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--color-red);
+    color: white;
+    text-align: center;
+    line-height: 30px;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.stepper .step .text {
+    font-size: 16px;
+    color: #6c757d;
+}
+
+.stepper .step:not(:last-child)::after {
+    content: "—";
+    margin: 0 10px;
+    font-size: 24px;
+    color: #6c757d;
+}
+
+.step.inactive .circle {
+    background-color: #6c757d;
+}
+
+.step-content {
+    display: none;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.step-content.active {
+    display: block;
+}
+
+.step-content h2 {
+    margin-top: 0;
+}
+
+.breadcrumbs .page-header-booking {
+    position: relative;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    padding:50px 0 50px 0;
+    height: 50px;
+    background-image: url(../img/hotel_page.png);
+}
+
+.breadcrumbs h5{
+    font-family: var(--font-second);
+    color: var(--color-red);
+    font-weight: 700;
 }

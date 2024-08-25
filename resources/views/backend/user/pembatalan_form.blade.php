@@ -5,13 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Pembatalan Booking</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <style>
     .error-message {
@@ -62,7 +58,6 @@
                 <h4>Form Pembatalan Booking</h4>
             </div>
             <div class="card-body">
-                <!-- Form untuk submit data -->
                 <form id="cancelBookingForm" action="{{route('cancel.booking')}}" method="POST">
                     @csrf
                     <input type="hidden" id="id_booking" name="id_booking" value="{{$booking->id_booking}}"
@@ -100,31 +95,25 @@
         </div>
     </div>
 
-    <!-- Loading Overlay -->
     <div class="loading-overlay" id="loading-overlay">
         <div class="spinner"></div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 
     <script>
     $(document).ready(function() {
-        // Initialize Select2 on the bank select element
+       
         $('#bank').select2();
-
-        // Function to show loading overlay
         function showLoadingOverlay() {
             $('#loading-overlay').show();
         }
 
-        // Function to hide loading overlay
         function hideLoadingOverlay() {
             $('#loading-overlay').hide();
         }
 
-        // Function to get bank details
         function getBankDetails() {
             const accountNumber = $('#accountNumber').val();
             const bankCode = $('#bank').val();
@@ -163,7 +152,6 @@
             }
         }
 
-        // Get bank details on button click
         $('#searchButton').on('click', function() {
             getBankDetails();
         });
