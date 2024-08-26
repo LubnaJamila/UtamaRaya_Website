@@ -28,14 +28,14 @@
         </div>
     </div>
     <div class="card-container">
-
+    @foreach ($nama_paket_wedding_1 as $nama_paket_wedding1)
         <div class="col-lg-4 col-md-4">
-            <img src="{{ asset($nama_paket_wedding_1->gambar_paket) }}" class="card-image">
+            <img src="{{ asset($nama_paket_wedding1->gambar_paket) }}" class="card-image">
         </div>
         <div class="card-item mb-3">
             <div class="card-item-content row align-items-center">
                 <div class="card-des col-md-8">
-                    <h5 class="card-item-title">{{ $nama_paket_wedding_1->nama_paket }}</h5>
+                    <h5 class="card-item-title">{{ $nama_paket_wedding1->nama_paket }}</h5>
                     <p class="card-item-description">Wedding dilakukan diteras pantai Utama Raya. Penyewa
                         mendapatkan free akad nikah di musholla Utama Raya!</p>
                     <div class="d-flex align-items-center mb-2">
@@ -56,21 +56,22 @@
                     </div>
                 </div>
                 <div class="col-md-4 text-end">
-                    <p class="price">{{ $nama_paket_wedding_1->harga_paket }}</p>
+                    <p class="price">{{ $nama_paket_wedding1->harga_paket }}</p>
                     <a type="button" class="btn btn-detail" href="/service/ballroom/detail">Lihat Detail</a>
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
     <div class="card-container">
-
+    @foreach ($nama_paket_wedding_2 as $nama_paket_wedding2)
         <div class="col-lg-4 col-md-4">
-            <img src="{{ asset($nama_paket_wedding_1->gambar_paket) }}" class="card-image">
+            <img src="{{ asset($nama_paket_wedding2->gambar_paket) }}" class="card-image">
         </div>
         <div class="card-item mb-3">
             <div class="card-item-content row align-items-center">
                 <div class="card-des col-md-8">
-                    <h5 class="card-item-title">{{ $nama_paket_wedding_1->nama_paket }}</h5>
+                    <h5 class="card-item-title">{{ $nama_paket_wedding2->nama_paket }}</h5>
                     <p class="card-item-description">Wedding dilakukan diteras pantai Utama Raya. Penyewa
                         mendapatkan free akad nikah di musholla Utama Raya!</p>
                     <div class="d-flex align-items-center mb-2">
@@ -91,11 +92,12 @@
                     </div>
                 </div>
                 <div class="col-md-4 text-end">
-                    <p class="price">{{ $nama_paket_wedding_1->harga_paket }}</p>
-                    <a type="button" class="btn btn-detail" href="/service/ballroom/detail">Lihat Detail</a>
+                    <p class="price">{{ $nama_paket_wedding2->harga_paket }}</p>
+                    <a type="button" class="btn btn-detail" href="/service/ballroom/detail2">Lihat Detail</a>
                 </div>
             </div>
         </div>
+        @endforeach
     </div>
 
 

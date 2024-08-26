@@ -74,9 +74,9 @@
 
     <div class="container-fluid detail">
         <div class="container">
-        @foreach ($nama_paket_wedding_1 as $nama_paket_wedding1)
+        @foreach ($nama_paket_wedding_2 as $nama_paket_wedding2)
             <div class="text-center mt-lg-4">
-                <h1 class="mb-4">Informasi<span class="text"> {{ $nama_paket_wedding1->nama_paket }} </span> Paket!</h1>
+                <h1 class="mb-4">Informasi<span class="text"> {{ $nama_paket_wedding2->harga_paket }} </span> Paket!</h1>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -87,10 +87,12 @@
                                 <div class="custom-hr"></div>
                                 <p class="card-text">Jam 08.00 - 22.00</p>
                                 <p class="card-text">Penyewa diberi kesempatan untuk perisapan 3 jam sebelum acara dimulai
-                                    dengan penerangan terbatas.</p>
+                                    dengan penerangan terbatas tanpa Ac.</p>
+                                <p class="card-text">Ac dinyalakan 1 jam sebelum acara dimulai.
+                                </p>
                                 <p class="card-text">Penyewa diberi waktu 1 jam setelah acara untuk membereskan peralatan.
                                 </p>
-                                <p class="price">{{ $nama_paket_wedding1->harga_paket }}</p>
+                                <p class="price">{{ $nama_paket_wedding2->harga_paket }}</p>
                                 <div class="btn-right">
                                     <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20memesan%20ruangan%20untuk%20tanggal%20xx"
                                         target="_blank" class="btn-whatsapp">
@@ -113,11 +115,11 @@
                                             <p class="card-text">
                                                 <i class="fa-solid fa-ruler-combined"
                                                     style="color: #8b0000; margin-right:10px"></i>
-                                                Luas: <span>500 m²</span>
+                                                Luas: <span>785 m²</span>
 
                                                 <i class="fa-solid fa-user-friends"
                                                     style="color: #8b0000; margin-left:10px"></i>
-                                                Kapasitas: <span>± 400 orang</span>
+                                                Kapasitas: <span>± 800 orang (Standing Party)</span>
                                             </p>
 
                                         </div>
@@ -129,11 +131,14 @@
                                             <h5 class="card-title">Fasilitas</h5>
                                             <div class="custom-hr"></div>
                                             <p class="card-text">Free Akad Nikah di Musholla Utama Raya</p>
+                                            <p class="card-text">AC</p>
                                             <p class="card-text">Sound System + 2 microphone</p>
                                             <p class="card-text">2 buah meja penerima tamu & kursi</p>
-                                            <p class="card-text">400 buah kursi outdoor</p>
-                                            <p class="card-text">Meja Bundar + Cover 10 buah dan 60 buah</p>
+                                            <p class="card-text">Toilet 3 ± wastafel</p>
+                                            <p class="card-text">500 buah kursi outdoor</p>
+                                            <p class="card-text">Meja Bundar + Cover 20 buah</p>
                                             <p class="card-text">Free Ticket</p>
+                                            <p class="card-text">Proyektor dikenakan tarif Rp 1.500.000/hari</p>
                                         </div>
                                     </div>
                                 </div>

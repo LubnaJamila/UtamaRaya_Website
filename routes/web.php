@@ -49,6 +49,7 @@ Route::get('/umkm', [HomeController::class, 'umkm'])->name('umkm');
 
 Route::get('/service/ballroom', [ServiceController::class, 'showBallroom']);
 Route::get('/service/ballroom/detail', [ServiceController::class, 'detailBallroom']);
+Route::get('/service/ballroom/detail2', [ServiceController::class, 'detailBallroom2']);
 Route::get('/service/watersport', [ServiceController::class, 'showWaterSport']);
 Route::get('/service/rental-bike', [ServiceController::class, 'showRentalBike']);
 

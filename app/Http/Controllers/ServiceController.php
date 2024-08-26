@@ -16,11 +16,26 @@ class ServiceController extends Controller
         $nama_paket_wedding_1 = DB::table('wedding') 
         ->where('nama_paket', 'Teras Pantai')
         ->select('wedding.*')
-        ->first();
-        return view('frontend.services.ballroom', compact('pageTitle','nama_paket_wedding_1'));
+        ->get();
+        $nama_paket_wedding_2 = DB::table('wedding') 
+        ->where('nama_paket', 'Royal Ballroom')
+        ->select('wedding.*')
+        ->get();
+        return view('frontend.services.ballroom', compact('pageTitle','nama_paket_wedding_1','nama_paket_wedding_2'));
     }
     public function detailBallroom(){
-        return view('frontend.services.detail_ballroom');
+        $nama_paket_wedding_1 = DB::table('wedding') 
+        ->where('nama_paket', 'Teras Pantai')
+        ->select('wedding.*')
+        ->get();
+        return view('frontend.services.detail_ballroom',compact('nama_paket_wedding_1'));
+    }
+    public function detailBallroom2(){
+        $nama_paket_wedding_2 = DB::table('wedding') 
+        ->where('nama_paket', 'Royal Ballroom')
+        ->select('wedding.*')
+        ->get();
+        return view('frontend.services.detail_ballroom2',compact('nama_paket_wedding_2'));
     }
 
     public function showWaterSport(){
