@@ -16,7 +16,7 @@ class ServiceController extends Controller
         $nama_paket_wedding_1 = DB::table('wedding') 
         ->where('nama_paket', 'Teras Pantai')
         ->select('wedding.*')
-        ->get();
+        ->first();
         return view('frontend.services.ballroom', compact('pageTitle','nama_paket_wedding_1'));
     }
     public function detailBallroom(){

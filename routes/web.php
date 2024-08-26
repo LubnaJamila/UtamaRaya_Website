@@ -129,6 +129,7 @@ Route::get('/validasi/checkout',[ValidasiController::class, 'pembayaranCheckout'
 Route::get('/validasi/umkm', [ValidasiController::class, 'umkm']);
 
 Route::get('/pengaturan', [UserController::class, 'pengaturan']);
+Route::get('/pembatalan', [UserController::class, 'pembatalan']);
 Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
 Route::get('/pengaturan/profile', [PengaturanController::class, 'profile']);
 Route::get('/pengaturan/edit', [UserController::class, 'edit_profile']);
