@@ -54,7 +54,7 @@ class UserController extends Controller
     {
         $request->validate([
             'nama_lengkap' => 'required|string',
-            'email' => 'required|string|email|unique:users,email',
+            'email' => 'required|string|email',
             'no_hp' => 'required|string|max:15',
 
         ], [

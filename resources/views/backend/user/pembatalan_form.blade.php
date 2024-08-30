@@ -85,7 +85,7 @@
                     </div>
                     <button type="button" id="searchButton" class="btn btn-primary">Cari Rekening</button>
                     <div id="detail-rekening" class="mt-3">
-                        <label for="accountHolder" class="form-label">Nomor Rekening:</label>
+                        <label for="accountHolder" class="form-label">Nama Pemilik</label>
                         <input type="text" id="accountHolder" name="accountHolder" class="form-control" required>
 
                     </div>
@@ -104,8 +104,9 @@
 
     <script>
     $(document).ready(function() {
-       
+
         $('#bank').select2();
+
         function showLoadingOverlay() {
             $('#loading-overlay').show();
         }

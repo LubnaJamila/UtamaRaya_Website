@@ -25,99 +25,99 @@
 
     <link rel="stylesheet" href="{{ asset('backend/assets/new.css') }}">
     <style>
-        .card-container {
-            margin-top: 30px;
-            align-items: center;
-            justify-content: center;
-        }
+    .card-container {
+        margin-top: 30px;
+        align-items: center;
+        justify-content: center;
+    }
 
-        .card-title {
-            font-family: var(--font-second);
-            color: var(--color-red);
-            font-weight: 700;
-        }
+    .card-title {
+        font-family: var(--font-second);
+        color: var(--color-red);
+        font-weight: 700;
+    }
 
 
-        .card label {
-            font-family: var(--font-primary);
-            color: black;
-            font-weight: 700;
-        }
+    .card label {
+        font-family: var(--font-primary);
+        color: black;
+        font-weight: 700;
+    }
 
-        .card {
+    .card {
 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            border: 1px solid;
-            border-color: #8B0000;
-        }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        border: 1px solid;
+        border-color: #8B0000;
+    }
 
-        .card input,
-        .card textarea {
-            border: 1px solid;
-            border-color: #8B0000;
-        }
+    .card input,
+    .card textarea {
+        border: 1px solid;
+        border-color: #8B0000;
+    }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
 
-        .card-title {
-            font-family: var(--font-second);
-            color: var(--color-red);
-            font-weight: 700;
-        }
+    .card-title {
+        font-family: var(--font-second);
+        color: var(--color-red);
+        font-weight: 700;
+    }
 
-        .card-subtitle span {
-            font-family: var(--font-second);
-            color: black;
-            font-weight: 700;
-        }
+    .card-subtitle span {
+        font-family: var(--font-second);
+        color: black;
+        font-weight: 700;
+    }
 
-        .modal-content {
-            border-radius: 8px;
-        }
+    .modal-content {
+        border-radius: 8px;
+    }
 
-        .modal-title {
-            font-weight: 700;
-            font-family: var(--font-second);
-            color: #8B0000
-        }
+    .modal-title {
+        font-weight: 700;
+        font-family: var(--font-second);
+        color: #8B0000
+    }
 
-        .btn-warning {
-            background-color: #FFC107;
-            color: #000;
-        }
+    .btn-warning {
+        background-color: #FFC107;
+        color: #000;
+    }
 
-        .modal-content label {
-            font-weight: 700;
-            font-family: var(--font-primary);
-            color: #000
-        }
+    .modal-content label {
+        font-weight: 700;
+        font-family: var(--font-primary);
+        color: #000
+    }
 
-        .modal-content select,
-        .modal-content textarea,
-        .modal-content input {
-            border-color: #8B0000
-        }
+    .modal-content select,
+    .modal-content textarea,
+    .modal-content input {
+        border-color: #8B0000
+    }
 
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
 
-        .content-container {
-            padding-top: 20px;
+    .content-container {
+        padding-top: 20px;
 
-        }
+    }
     </style>
 </head>
 
@@ -137,7 +137,8 @@
                         <i class="fas fa-tachometer-alt fa-sm fa-fw me-2"></i>
                         Dashboard
                     </a>
-                    <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                    <a class="dropdown-item" href="{{route('logout')}}" data-bs-toggle="modal"
+                        data-bs-target="#logoutModal">
                         <i class="fas fa-sign-out-alt fa-sm fa-fw me-2" style="font-weight: 700 padding-right:10px"></i>
                         Logout
                     </a>
@@ -175,7 +176,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-        </script>
+    </script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
     <script src="{{ asset('backend/assets/script.js') }}"></script>

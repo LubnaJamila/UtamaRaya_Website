@@ -27,7 +27,6 @@ class AdminController extends Controller
         ->groupBy('status')
         ->get();
 
-           // Ambil data dari tabel umkm yang berstatus aktif
            $total_umkm = langganan::where('status_langganan', 'aktif')->count();
            $total_checkin=Booking::where('status_booking','checkin')->count();
            $total_booking=Booking::where('status_booking','pengajuan_booking')->count();
@@ -59,20 +58,18 @@ $filename = date('Y-m-d') . $file->getClientOriginalName();
 $filePath = 'gambar_kamar/' . $filename;
 $file->move(public_path('gambar_kamar'), $filename);
 
-// Memecah deskripsi menggunakan explode
 $deskripsiArray = explode(',', $request->deskripsi);
 
-// Menyimpan tipe kamar baru
+
 $tipeKamar = Penginapan::create([
     'nama_kamar' => $request->nama_kamar,
     'harga_weekdays' => $request->harga_weekdays,
     'harga_weekend' => $request->harga_weekend,
     'jumlah_ruangan' => $request->jumlah_ruangan,
-    'deskripsi' => json_encode($deskripsiArray), // Simpan sebagai JSON array
+    'deskripsi' => json_encode($deskripsiArray), 
     'gambar_kamar' => $filePath,
 ]);
 
-// Menyimpan nomor kamar berdasarkan jumlah_no_kamar yang diinputkan
 for ($i = 1; $i <= $request->jumlah_no_kamar; $i++) {
     NoKamar::create([
         'no_kamar' => $i,
@@ -102,36 +99,29 @@ $request->validate([
 
 $penginapan = Penginapan::findOrFail($id_tipe_kamar);
 
-// Jika ada file gambar baru, proses upload
 if ($request->hasFile('gambar_kamar')) {
     $file = $request->file('gambar_kamar');
     $filename = date('Y-m-d') . $file->getClientOriginalName();
     $filePath = 'gambar_kamar/' . $filename;
     $file->move(public_path('gambar_kamar'), $filename);
-
-    // Update path gambar
     $penginapan->gambar_kamar = $filePath;
 }
 
-// Memecah deskripsi menggunakan explode
 $deskripsiArray = explode(',', $request->deskripsi);
 
-// Update data tipe kamar
 $penginapan->update([
     'nama_kamar' => $request->nama_kamar,
     'harga_weekdays' => $request->harga_weekdays,
     'harga_weekend' => $request->harga_weekend,
     'jumlah_ruangan' => $request->jumlah_ruangan,
-    'deskripsi' => json_encode($deskripsiArray), // Simpan sebagai JSON array
+    'deskripsi' => json_encode($deskripsiArray), 
 ]);
 
-// Update nomor kamar jika jumlah_no_kamar berubah
 $jumlahNoKamarLama = NoKamar::where('id_tipe_kamar', $id_tipe_kamar)->count();
 if ($jumlahNoKamarLama != $request->jumlah_no_kamar) {
-    // Hapus semua nomor kamar lama
+
     NoKamar::where('id_tipe_kamar', $id_tipe_kamar)->delete();
 
-    // Tambahkan nomor kamar baru
     for ($i = 1; $i <= $request->jumlah_no_kamar; $i++) {
         NoKamar::create([
             'no_kamar' => $i,
@@ -145,13 +135,8 @@ return redirect()->route('penginapan')->with('success', 'Data penginapan berhasi
 
 public function hapuspenginapan($id_tipe_kamar)
 {
-    // Cari tipe kamar berdasarkan ID
     $penginapan = Penginapan::findOrFail($id_tipe_kamar);
-    
-    // Hapus semua nomor kamar yang terkait dengan tipe kamar ini
     NoKamar::where('id_tipe_kamar', $id_tipe_kamar)->delete();
-
-    // Hapus tipe kamar
     $penginapan->delete();
 
     return redirect()->route('penginapan')->with('success', 'Data penginapan berhasil dihapus.');
@@ -208,7 +193,6 @@ public function hapuspenginapan($id_tipe_kamar)
         'deskripsi' => $request->deskripsi,
     ];
 
-    // Cek jika ada file gambar baru yang diunggah
     if ($request->hasFile('gambar_watersport')) {
         $file = $request->file('gambar_watersport');
         $filename = date('Y-m-d') . $file->getClientOriginalName();
@@ -217,7 +201,6 @@ public function hapuspenginapan($id_tipe_kamar)
         $data['gambar_watersport'] = $filePath;
     }
 
-    // Update data watersport
     $data_watersport->update($data);
 
     return redirect()->route('watersport')->with('success', 'Produk berhasil diperbarui.');
@@ -275,7 +258,6 @@ public function hapuspenginapan($id_tipe_kamar)
         'harga_rentalbike' => $request->harga_rentalbike,
     ];
 
-    // Cek jika ada file gambar baru yang diunggah
     if ($request->hasFile('gambar_rentalbike')) {
         $file = $request->file('gambar_rentalbike');
         $filename = date('Y-m-d') . $file->getClientOriginalName();
@@ -342,7 +324,6 @@ public function hapuspenginapan($id_tipe_kamar)
         'harga_paket' => $request->harga_paket,
     ];
 
-    // Cek jika ada file gambar baru yang diunggah
     if ($request->hasFile('gambar_paket')) {
         $file = $request->file('gambar_paket');
         $filename = date('Y-m-d') . $file->getClientOriginalName();
@@ -366,25 +347,18 @@ public function hapuspenginapan($id_tipe_kamar)
    }
     public function index_rekening()
     {
-        // Membuat permintaan ke API listBank
         $response = Http::get('https://api-rekening.lfourr.com/listBank');
 
-        // Memeriksa apakah permintaan berhasil
         if ($response->successful()) {
-            // Mendapatkan data daftar bank dari respons JSON
             $responseData = $response->json();
-
-            // Memeriksa apakah respons berisi data bank
             if (isset($responseData['data'])) {
-                $banks = $responseData['data']; // Mengambil data bank dari kunci 'data'
+                $banks = $responseData['data']; 
 
-                // Mengirimkan data ke view
                 return view('backend.admin.master.createrekening', compact('banks'));
             } else {
                 return back()->withErrors('Data bank tidak tersedia dalam respons');
             }
         } else {
-            // Jika permintaan gagal, tindakan yang sesuai (misalnya menampilkan pesan kesalahan)
             return back()->withErrors('Gagal mengambil daftar bank');
         }
     }
@@ -399,7 +373,6 @@ public function hapuspenginapan($id_tipe_kamar)
             'accountNumber' => $accountNumber,
         ]);
 
-        // Log the entire response for debugging
         Log::info('API Response:', ['response' => $response->body()]);
 
         if ($response->successful()) {
@@ -424,14 +397,10 @@ public function hapuspenginapan($id_tipe_kamar)
             'nama_pemilik' => 'required',
             
         ]);
-
-            // Create a new instance of RekPembayaran
         $rekPembayaran = new RekPembayaran();
         $rekPembayaran->nama_bank = $request->nama_bank;
         $rekPembayaran->no_rek = $request->no_rek;
         $rekPembayaran->nama_pemilik = $request->nama_pemilik;
-
-        // Save the new record to the database
         $rekPembayaran->save();
             return redirect()->route('rekening')->with('success', 'Tambah Data Rekening berhasil ditambahkan.');
         }

@@ -25,33 +25,33 @@
 
     <link rel="stylesheet" href="{{ asset('backend/assets/new.css') }}">
     <style>
-        .content-container {
-            padding-top: 70px;
+    .content-container {
+        padding-top: 70px;
 
-        }
+    }
 
-        .card-title {
-            font-family: var(--font-second);
-            color: var(--color-red);
-            font-weight: 700;
-        }
+    .card-title {
+        font-family: var(--font-second);
+        color: var(--color-red);
+        font-weight: 700;
+    }
 
-        .card label {
-            font-family: var(--font-primary);
-            color: black;
-            font-weight: 700;
-        }
+    .card label {
+        font-family: var(--font-primary);
+        color: black;
+        font-weight: 700;
+    }
 
-        .card {
-            border: 1px solid;
-            border-color: #8B0000;
-        }
+    .card {
+        border: 1px solid;
+        border-color: #8B0000;
+    }
 
-        .card input,
-        .card textarea {
-            border: 1px solid;
-            border-color: #8B0000;
-        }
+    .card input,
+    .card textarea {
+        border: 1px solid;
+        border-color: #8B0000;
+    }
     </style>
 </head>
 
@@ -59,8 +59,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
                     <span class="me-2 d-none d-lg-inline"
                         style="font-weight: 700; color:black">{{ Auth::user()->nama_lengkap }}</span>
                     <img class="img-profile rounded-circle" src="{{ asset('backend/assets/img/undraw_profile.svg') }}"
@@ -93,15 +93,15 @@
                             value="{{ $langganan->harga_langganan }}" readonly>
                     </div>
 
-                    <div class="col-lg-12 mb-3">
+                    <div class="col-lg-6 mb-3">
                         <label for="bankName" class="form-label">Nama Bank</label>
-                        <select id="MetodePembayaran" name="id_rek" class="form-input" required>
+                        <select id="MetodePembayaran" name="id_rek" class="form-select" required>
                             <option value="">Pilih Bank</option>
                             @foreach ($no_rek_list as $id_rek => $details)
-                                <option value="{{ $id_rek }}" data-rek="{{ $details['no_rek'] }}"
-                                    data-pemilik="{{ $details['nama_pemilik'] }}">
-                                    {{ $details['nama_bank'] }}
-                                </option>
+                            <option value="{{ $id_rek }}" data-rek="{{ $details['no_rek'] }}"
+                                data-pemilik="{{ $details['nama_pemilik'] }}">
+                                {{ $details['nama_bank'] }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -121,24 +121,24 @@
         </div>
     </div>
     <script>
-        document.getElementById('MetodePembayaran').addEventListener('change', function() {
-            var selectedOption = this.options[this.selectedIndex];
-            var rek = selectedOption.getAttribute('data-rek');
-            var pemilik = selectedOption.getAttribute('data-pemilik');
-            var rekeningNo = document.getElementById('rekeningNo');
-            var pemilikNama = document.getElementById('pemilikNama');
-            var rekeningDetails = document.getElementById('rekeningDetails');
+    document.getElementById('MetodePembayaran').addEventListener('change', function() {
+        var selectedOption = this.options[this.selectedIndex];
+        var rek = selectedOption.getAttribute('data-rek');
+        var pemilik = selectedOption.getAttribute('data-pemilik');
+        var rekeningNo = document.getElementById('rekeningNo');
+        var pemilikNama = document.getElementById('pemilikNama');
+        var rekeningDetails = document.getElementById('rekeningDetails');
 
-            if (rek && pemilik) {
-                rekeningNo.textContent = 'No Rekening: ' + rek;
-                pemilikNama.textContent = 'Nama Pemilik: ' + pemilik;
-                rekeningDetails.style.display = 'block';
-            } else {
-                rekeningDetails.style.display = 'none';
-                rekeningNo.textContent = '';
-                pemilikNama.textContent = '';
-            }
-        });
+        if (rek && pemilik) {
+            rekeningNo.textContent = 'No Rekening: ' + rek;
+            pemilikNama.textContent = 'Nama Pemilik: ' + pemilik;
+            rekeningDetails.style.display = 'block';
+        } else {
+            rekeningDetails.style.display = 'none';
+            rekeningNo.textContent = '';
+            pemilikNama.textContent = '';
+        }
+    });
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

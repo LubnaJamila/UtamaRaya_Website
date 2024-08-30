@@ -26,17 +26,14 @@ class UMKMController extends Controller
         ->select('status_langganan', 'tanggal_mulai', 'tanggal_berakhir')
         ->get();
 
-    // Pisahkan data ke dalam array
     $statuses = $data_langganan->pluck('status_langganan');
     $startDates = $data_langganan->pluck('tanggal_mulai');
     $endDates = $data_langganan->pluck('tanggal_berakhir');
 
-    // Ambil id_langganan dari tabel langganan berdasarkan id_user
     $id_langganan = DB::table('langganan')
         ->where('id_user', $userId)
         ->value('id_langganan');
 
-    // Ambil data produk yang sesuai dengan id_langganan
     $data_produk = DB::table('produk')
         ->where('id_langganan', $id_langganan)
         ->get();
@@ -45,7 +42,7 @@ class UMKMController extends Controller
 
      public function paketUMKM()
     {
-        $userId = Auth::id(); // ID user yang sedang login
+        $userId = Auth::id();
         $langganan = Langganan::where('id_user', $userId)->first();
         return view('backend.umkm.langgananumkm', compact('langganan'));
     }
@@ -53,17 +50,14 @@ class UMKMController extends Controller
      public function produk()
     {
         $userId = Auth::id();
-        // Ambil id_langganan dari tabel langganan berdasarkan id_user
             $id_langganan = DB::table('langganan')
             ->where('id_user', $userId)
             ->value('id_langganan');
 
-        // Ambil data produk yang sesuai dengan id_langganan
         $data_produk = DB::table('produk')
             ->where('id_langganan', $id_langganan)
             ->get();
 
-        // Hitung jumlah produk
         $product_count = $data_produk->count();
         return view('backend.umkm.produk', compact('data_produk', 'product_count'));
     }
@@ -72,7 +66,7 @@ class UMKMController extends Controller
         return view('backend.umkm.create');
     }
     public function store(Request $request){
-        // Validasi input awal
+
         $request->validate([
             'nama_produk' => 'required',
             'harga_produk' => 'required|numeric',
@@ -92,14 +86,12 @@ class UMKMController extends Controller
         if ($request->harga_produk < $langganan->harga_terkecil || $request->harga_produk > $langganan->harga_tertinggi) {
             return back()->withErrors(['error' => 'Harga produk harus berada di antara ' . $langganan->harga_terkecil . ' dan ' . $langganan->harga_tertinggi]);
         }
-    
-        // Proses upload file gambar
+
         $file = $request->file('gambar_produk');
         $filename = date('Y-m-d') . $file->getClientOriginalName();
         $filePath = 'gambar_produk/' . $filename;
         $file->move(public_path('gambar_produk'), $filename);
-    
-        // Simpan data produk ke database termasuk id_langganan
+
         ProdukUMKM::create([
             'nama_produk' => $request->nama_produk,
             'harga_produk' => $request->harga_produk,
@@ -189,7 +181,7 @@ class UMKMController extends Controller
             'password_confirmation.confirmed' => 'Konfirmasi password tidak sama',
             'password_confirmation.min' => 'Konfirmasi password harus terdiri dari minimal 3 karakter',
         ]);
-        // Hitung harga rata-rata
+
         $harga_terkecil = $request->input('harga_terkecil');
         $harga_tertinggi = $request->input('harga_tertinggi');
         $harga_rata = ($harga_terkecil + $harga_tertinggi) / 2;
@@ -247,13 +239,11 @@ public function save_berlangganan(Request $request)
     try {
         $userId = Auth::id();
 
-        // Handle file upload
         $file = $request->file('bukti_tf');
         $filename = date('Y-m-d') . '-' . $file->getClientOriginalName();
         $filePath = 'bukti_tf/' . $filename;
         $file->move(public_path('bukti_tf'), $filename);
 
-        // Update subscription data for the logged-in user
         DB::table('langganan')->where('id_user', $userId)->update([
             'status_langganan' => 'Menunggu verifikasi',
             'bukti_tf' => $filePath,

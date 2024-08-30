@@ -127,16 +127,19 @@ Route::post('/validasi/checkin/{id}', [ValidasiController::class, 'checkin'])->n
 Route::get('/validasi/checkin',[ValidasiController::class, 'pembayaranCheckin'])->name('pembayaran.checkin');
 Route::post('/validasi/checkout/{id}', [ValidasiController::class, 'checkout'])->name('validasi.checkout');
 Route::get('/validasi/checkout',[ValidasiController::class, 'pembayaranCheckout'])->name('pembayaran.checkout');
-Route::get('/validasi/umkm', [ValidasiController::class, 'umkm']);
+Route::get('/validasi/umkm', [ValidasiController::class, 'umkm'])->name('validasi.umkm');
+Route::get('/validasi/umkm/aktif', [ValidasiController::class, 'umkmAktif'])->name('validasi.umkm_aktif');
+Route::get('/validasi/umkm/nonaktif', [ValidasiController::class, 'umkmNonaktif'])->name('validasi.umkm_nonaktif');
+Route::post('/validasi/umkm/{id}', [ValidasiController::class, 'validasiLangganan'])->name('validasi.aktif');
+Route::post('/validasi/umkm/{id}', [ValidasiController::class, 'validasiNonAktif'])->name('validasi.nonaktif');
 
 Route::get('/pengaturan', [UserController::class, 'pengaturan']);
 Route::get('/pembatalan', [UserController::class, 'pembatalan']);
 Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
 Route::get('/pengaturan/profile', [PengaturanController::class, 'profile']);
-Route::get('/pengaturan/edit', [UserController::class, 'edit_profile']);
+Route::get('/pengaturan/edit', [UserController::class, 'edit_profile'])->name('edit_profile');
 Route::put('/pengaturan/edit/update', [UserController::class, 'update_profile'])->name('update_profile');
 
-//lubna
 Route::get('/penginapan', [RoomController::class, 'index'])->name('penginapan.list');
 Route::get('/kamar/{id_tipe_kamar}', [RoomController::class, 'show'])->name('kamar.show');
 Route::post('/check-availability', [RoomController::class, 'checkAvailability'])->name('check.availability');

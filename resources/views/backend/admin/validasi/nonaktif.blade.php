@@ -35,7 +35,7 @@
 }
 </style>
 <div class="container dashboard-validasi mt-4">
-    <h5 class="card-title mb-2">Data Langganan UMKM Menunggu Pengaktifan</h5>
+    <h5 class="card-title mb-2">Data Langganan UMKM Non-Aktif</h5>
     <div class="row mb-3">
         <div class="col-lg-4 col-md-4 mb-3">
             <a href="{{route('validasi.umkm')}}">
@@ -83,7 +83,6 @@
                     <th>Tanggal Mulai</th>
                     <th>Tanggal Selesai</th>
                     <th>Bukti Transaksi</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -95,13 +94,6 @@
                     <td>{{ $item->tanggal_berakhir }}</td>
                     <td><img src="{{ asset($item->bukti_tf) }}" alt="Foto Produk" class="img-thumbnail"
                             style="max-width: 150px"></td>
-                    <td>
-                        <form action="{{ route('validasi.aktif', $item->id_langganan) }}" method="POST"
-                            style="display:inline;">
-                            @csrf
-                            <button type="submit" class="btn btn-info mb-1" style="font-weight: 800">Aktifkan</button>
-                        </form>
-                    </td>
                 </tr>
                 @endforeach
             </tbody>

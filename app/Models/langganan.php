@@ -22,4 +22,12 @@ class langganan extends Model
         'id_user',
         'id_rek',
     ];
+    public function rekPembayaran()
+    {
+        return $this->belongsTo(RekPembayaran::class, 'id_rek');
+    }
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }

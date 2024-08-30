@@ -16,8 +16,7 @@ class RescheduleController extends Controller
         $id_booking = $request->input('id_booking');
         $checkInDate = $request->input('check_in_date');
         $checkOutDate = $request->input('check_out_date');
-
-        // Pengecekan kamar yang tidak tersedia berdasarkan tanggal check-in dan check-out
+        
         $unavailableRoomIds = Booking::where(function ($query) use ($checkInDate, $checkOutDate) {
             $query->where(function ($query) use ($checkInDate, $checkOutDate) {
                 $query->whereBetween('tanggal_checkin', [$checkInDate, $checkOutDate])
@@ -28,15 +27,14 @@ class RescheduleController extends Controller
                     });
             });
         })
-            ->whereIn('status_booking', ['pengajuan_booking', 'booking', 'check in']) // Status aktif
-            ->pluck('id_no_kamar'); // ID kamar yang tidak tersedia
+            ->whereIn('status_booking', ['pengajuan_booking', 'booking', 'check in'])
+            ->pluck('id_no_kamar');
 
-        // Pengecekan kamar berdasarkan status booking yang bisa dibooking lagi
         $cancellableRooms = NoKamar::where('id_tipe_kamar', $roomId)
             ->whereIn('id_no_kamar', function ($query) use ($checkInDate, $checkOutDate) {
                 $query->select('id_no_kamar')
                     ->from('booking')
-                    ->whereIn('status_booking', ['pengajuan_pembatalan', 'dibatalkan', 'check out']) // Status yang bisa dibooking lagi
+                    ->whereIn('status_booking', ['pengajuan_pembatalan', 'dibatalkan', 'check out'])
                     ->where(function ($query) use ($checkInDate, $checkOutDate) {
                         $query->where(function ($query) use ($checkInDate, $checkOutDate) {
                             $query->whereBetween('tanggal_checkin', [$checkInDate, $checkOutDate])
@@ -49,23 +47,19 @@ class RescheduleController extends Controller
                     })
                     ->pluck('id_no_kamar');
             })
-            ->whereNotIn('id_no_kamar', $unavailableRoomIds) // Pastikan tidak dalam daftar unavailable
+            ->whereNotIn('id_no_kamar', $unavailableRoomIds)
             ->get();
 
-        // Gabungkan kamar yang tersedia dan kamar yang bisa dibooking lagi
         $allAvailableRooms = NoKamar::where('id_tipe_kamar', $roomId)
-            ->whereNotIn('id_no_kamar', $unavailableRoomIds) // Kamar yang benar-benar tersedia
+            ->whereNotIn('id_no_kamar', $unavailableRoomIds)
             ->get()
-            ->merge($cancellableRooms) // Tambahkan kamar yang bisa dibooking lagi
-            ->unique('id_no_kamar'); // Pastikan ID kamar unik
+            ->merge($cancellableRooms)
+            ->unique('id_no_kamar');
 
-        // Ambil data tipe kamar
         $roomType = Penginapan::find($roomId);
 
-        // Ambil booking berdasarkan kamar yang tersedia
         $booking = Booking::with('NoKamar.Penginapan')->findOrFail($id_booking);
 
-        // Hitung harga berdasarkan hari dalam rentang tanggal
         $totalPrice = 0;
         $currentDate = Carbon::parse($checkInDate);
 
@@ -73,11 +67,9 @@ class RescheduleController extends Controller
             $dayOfWeek = $currentDate->dayOfWeek;
             $isWeekend = ($dayOfWeek == Carbon::FRIDAY || $dayOfWeek == Carbon::SATURDAY);
 
-            // Tentukan harga berdasarkan hari
             $pricePerDay = $isWeekend ? $roomType->harga_weekend : $roomType->harga_weekdays;
             $totalPrice += $pricePerDay;
 
-            // Tambahkan satu hari
             $currentDate->addDay();
         }
 
@@ -90,13 +82,12 @@ class RescheduleController extends Controller
             'checkInDate' => $checkInDate,
             'checkOutDate' => $checkOutDate,
             'numberOfNights' => $numberOfNights,
-            'booking' => $booking, // Kirim data booking ke view
+            'booking' => $booking, 
         ]);
     }
     public function updateBooking(Request $request)
     {
         // dd($request->all());
-        // Validasi input
         $validatedData = $request->validate([
             'booking_id' => 'required|integer|exists:booking,id_booking',
             'check_in_date' => 'required|date',
@@ -105,14 +96,12 @@ class RescheduleController extends Controller
             'selected_room_id' => 'required|integer|exists:no_kamar,id_no_kamar',
         ]);
 
-        // Temukan booking berdasarkan ID
         $booking = Booking::find($validatedData['booking_id']);
 
         if (!$booking) {
             return redirect()->back()->withErrors(['Booking not found.']);
         }
 
-        // Update booking
         $booking->tanggal_checkin = $validatedData['check_in_date'];
         $booking->tanggal_checkout = $validatedData['check_out_date'];
         $booking->total_harga = $validatedData['total_price'];

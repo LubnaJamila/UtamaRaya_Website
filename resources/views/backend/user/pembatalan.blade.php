@@ -25,13 +25,14 @@
                     <td>{{ $booking->tanggal_checkin }}</td>
                     <td>{{ $booking->tanggal_checkout }}</td>
                     <td><span class="btn-status">{{ $booking->status_booking }}</span></td>
-                    <td>@if($booking->bukti_pengembalian)
-                        <img src="{{ asset($booking->bukti_pengembalian) }}" alt="Bukti Pengembalian"
-                            class="img-thumbnail" style="max-width: 150px">
-                        @else
-                        <span>Pengembalian sedang diproses</span>
-                        @endif
-                    </td>
+                    <td><a href="{{ asset($booking->bukti_tf) }}" target="_blank">
+                            @if($booking->bukti_pengembalian)
+                            <img src="{{ asset($booking->bukti_pengembalian) }}" alt="Bukti Transfer"
+                                class="img-thumbnail" style="max-width: 150px">
+                            @else
+                            <span>Pengembalian sedang diproses</span>
+                            @endif
+                        </a></td>
                 </tr>
                 @endforeach
             </tbody>

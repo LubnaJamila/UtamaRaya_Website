@@ -1,6 +1,30 @@
 @extends('body')
 @section('content')
-<!-- Breadcrumbs Start -->
+<style>
+.container-fluid.akomodasi {
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 0;
+}
+
+.item {
+    display: inline-block;
+    width: calc(33.333% - 5px);
+    margin-right: 5px;
+    vertical-align: top;
+}
+
+.item:last-child {
+    margin-right: 0;
+
+}
+
+.container {
+    padding-left: 0;
+    padding-right: 0;
+}
+</style>
+
 <div class="breadcrumbs">
     <div class="page-header-booking d-flex align-items-center">
         <div class="container position-relative">
@@ -20,9 +44,7 @@
         </div>
     </nav>
 </div>
-<!-- Breadcrumbs End -->
 
-<!-- Package Start -->
 @if ($tipeKamar->isEmpty())
 <div class="container mt-4 mb-4">
     <div class="row">
@@ -32,34 +54,30 @@
     </div>
 </div>
 @else
-@foreach ($tipeKamar as $type)
 <div class="container-fluid akomodasi mt-4">
     <div class="container">
         <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="item" style="text-align: left;">
+            @foreach ($tipeKamar as $type)
+            <div class="item">
+                <div class="card" style="text-align: left;">
                     <div id="carouselExampleControls" class="carousel slide">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="{{ asset($type->gambar_kamar) }}" class="d-block w-100" alt="Hotel Image 1">
+                                <img src="{{ asset($type->gambar_kamar) }}" class="d-block" style="max-height:150px"
+                                    alt="Hotel Image 1">
                             </div>
                         </div>
                     </div>
                     <div class="title mb-3" style="display: flex; justify-content: space-between; align-items: center;">
                         <h4 style="margin: 0;">{{ $type->nama_kamar }}</h4>
-                        <div>
-                            <h6 style="color: #8b0000; font-size: 18px; margin: 0;">Weekends:
-                                Rp{{ number_format($type->harga_weekend, 0, ',', '.') }}</h6>
-                            <h6 style="color: #8b0000; font-size: 18px; margin: 0;">Weekdays:
-                                Rp{{ number_format($type->harga_weekdays, 0, ',', '.') }}</h6>
-                        </div>
+
                     </div>
                     <ul>
                         <li><i class="fa-solid fa-door-closed" style="color: #8b0000;"></i><span>Jumlah Ruangan:
                                 {{ $type->jumlah_ruangan }}</span></li>
                     </ul>
 
-                    <h5 style="color: #8b0000; font-size: 18px;">Deskripsi</h5>
+                    <h5 style="color: #8b0000; font-size: 18px; font-weight:700px; margin-top: 0">Deskripsi</h5>
                     @php
                     $deskripsiArray = json_decode($type->deskripsi, true);
                     @endphp
@@ -67,20 +85,24 @@
                     @foreach ($deskripsiArray as $deskripsi)
                     <li>{{ $deskripsi }}</li>
                     @endforeach
-
+                    <hr>
+                    <div>
+                        <h6 style="color: #8b0000; font-size: 15px; margin: 0;">Weekends:
+                            Rp{{ number_format($type->harga_weekend, 0, ',', '.') }}</h6>
+                        <h6 style="color: #8b0000; font-size: 15px; margin: 0;">Weekdays:
+                            Rp{{ number_format($type->harga_weekdays, 0, ',', '.') }}</h6>
+                    </div>
                     <div class="button-container">
                         <a href="{{ route('kamar.show', ['id_tipe_kamar' => $type->id_tipe_kamar]) }}"
                             class="btn-pilih">Cek Ketersediaan</a>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
     </div>
 </div>
-@endforeach
 @endif
-
-<!-- Package End -->
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 

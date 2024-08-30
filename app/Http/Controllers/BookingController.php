@@ -26,7 +26,6 @@ class BookingController extends Controller
             'accountNumber' => $accountNumber,
         ]);
 
-        // Log the entire response for debugging
         Log::info('API Response:', ['response' => $response->body()]);
 
         if ($response->successful()) {
@@ -54,20 +53,16 @@ class BookingController extends Controller
     }
     public function store(Request $request)
     {
-        // Validasi data jika diperlukan
         $validatedData = $request->validate([
             'id_rek' => 'required',
             'bukti_tf' => 'required|file|mimes:jpg,jpeg,png,pdf',
         ]);
-
-        
-        // Simpan data booking ke database
         $booking = new Booking();
         $booking->tanggal_checkin = $request->tanggal_checkin;
         $booking->tanggal_checkout = $request->tanggal_checkout;
         $booking->total_harga = $request->total_harga;
-        $booking->min_dp = $request->min_dp; // 50% DP
-        $booking->status_booking = 'pengajuan_booking'; // Atur status default jika perlu
+        $booking->min_dp = $request->min_dp; 
+        $booking->status_booking = 'pengajuan_booking'; 
         $booking->id_user = $request->id_user;
 
         $bookingFolder = public_path('uploads');
@@ -75,7 +70,6 @@ class BookingController extends Controller
             mkdir($bookingFolder, 0777, true);
         }
 
-        // Simpan file upload untuk event
         if ($request->hasFile('bukti_tf')) {
             $file = $request->file('bukti_tf');
             $fileName = time() . '_' . $file->getClientOriginalName();
@@ -86,31 +80,23 @@ class BookingController extends Controller
         $booking->id_rek = $request->id_rek;
         $booking->save();
 
-        // Redirect atau tampilkan pesan sukses
         return redirect()->route('dashboard')->with('message','Booking berhasil dilakukan!');
     }
     public function showCancellationForm($id_booking)
     {
         $booking = Booking::findOrFail($id_booking);
-        // Membuat permintaan ke API listBank
         $response = Http::get('https://api-rekening.lfourr.com/listBank');
 
-        // Memeriksa apakah permintaan berhasil
         if ($response->successful()) {
-            // Mendapatkan data daftar bank dari respons JSON
             $responseData = $response->json();
 
-            // Memeriksa apakah respons berisi data bank
             if (isset($responseData['data'])) {
-                $banks = $responseData['data']; // Mengambil data bank dari kunci 'data'
-
-                // Mengirimkan data ke view
+                $banks = $responseData['data']; 
                 return view('backend.user.pembatalan_form', compact('booking', 'banks'));
             } else {
                 return back()->withErrors('Data bank tidak tersedia dalam respons');
             }
         } else {
-            // Jika permintaan gagal, tindakan yang sesuai (misalnya menampilkan pesan kesalahan)
             return back()->withErrors('Gagal mengambil daftar bank');
         }
 
@@ -118,20 +104,17 @@ class BookingController extends Controller
 
     public function cancelBooking(Request $request)
     {
-        // Validasi input
         $request->validate([
-            'id_booking' => 'required|exists:booking,id_booking', // Validasi ID booking
+            'id_booking' => 'required|exists:booking,id_booking',
             'alasan' => 'required|string|max:255',
             'bank' => 'required|string',
             'accountNumber' => 'required|string',
             'accountHolder' => 'required|string'
         ]);
 
-        // Cari booking berdasarkan ID
         $booking = Booking::find($request->id_booking);
 
         if ($booking) {
-            // Update data booking
             $booking->status_booking = 'pengajuan_pembatalan';
             $booking->alasan_pengembalian = $request->alasan;
             $booking->no_rek_tamu = $request->accountNumber;
@@ -164,17 +147,10 @@ class BookingController extends Controller
         ]);
 
         try {
-           // Ambil data booking dan relasinya
         $booking = Booking::with('NoKamar.Penginapan')->findOrFail($request->id_booking);
-
-        // Ambil data dari relasi
         $noKamarId = $booking->NoKamar->id_no_kamar;
         $tipeKamarId = $booking->NoKamar->Penginapan->id_tipe_kamar;
-
-        // Cek ketersediaan kamar
         $availableRooms = $this->getAvailableRooms($tipeKamarId, $request->check_in_date, $request->check_out_date);
-
-        // Hitung total harga
         $roomType = Penginapan::findOrFail($tipeKamarId);
         $totalPrice = $this->calculateTotalPrice($roomType, $request->check_in_date, $request->check_out_date);
 
@@ -184,7 +160,6 @@ class BookingController extends Controller
             ]);
 
         } catch (\Exception $e) {
-            // Kirimkan pesan error ke client
             return response()->json(['message' => 'Terjadi kesalahan: ' . $e->getMessage()], 500);
         }
     }
@@ -229,7 +204,6 @@ class BookingController extends Controller
             $totalPrice += $pricePerDay;
             $currentDate->addDay();
         }
-
         return $totalPrice;
     }
 }

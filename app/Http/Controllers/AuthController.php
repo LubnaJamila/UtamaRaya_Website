@@ -52,7 +52,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:3|confirmed',
             'password_confirmation' => 'required|string|min:3',
             'nama_lengkap' => 'required|string',
-            'no_hp' => 'required|string|max:15',
+            'no_hp' => 'required|string|numeric',
         ], [
             'email.required' => 'Email wajib diisi',
             'email.email' => 'Email harus berformat email yang valid',
@@ -64,6 +64,7 @@ class AuthController extends Controller
             'password_confirmation.min' => 'Konfirmasi password harus terdiri dari minimal 3 karakter',
             'nama_lengkap.required' => 'Nama lengkap wajib diisi',
             'no_hp.required' => 'No Hp wajib diisi',
+            'no_hp.numeric' => 'No HP tidak boleh selain angka'
         ]);
 
         $user = User::create([
